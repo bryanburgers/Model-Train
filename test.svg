@@ -7,7 +7,7 @@
  <script type="text/javascript" xlink:href="traverser.js" />
  <script type="text/javascript" xlink:href="session.js" />
  <script type="text/javascript"><![CDATA[
-  var speed = 0;
+  var speed = 1;
   var traverser = null;
   var trainSvg = null;
   var i = 128;
@@ -220,7 +220,11 @@
    <path d="M -10,20 L -10,-20 L 0,-26 L 10,-20 L 10,20 z" fill="black"/>
   </g>
  </defs>
+
+ <!-- The grass (background) -->
  <rect width="100%" height="100%" fill="#080"/>
+
+ <!-- Where all of the scene elements go -->
  <g id="box" transform="translate(300,300) scale(0.444444) rotate(0)">
    <g id="tracks"/>
    <g id="trains"/>
