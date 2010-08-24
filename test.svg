@@ -233,8 +233,41 @@
    <path d="M  4.5,124 A 123.5,123.5,0,0,1,124, 4.5" stroke-width="2" stroke="black" fill="none" />
   </g>
 
+  <linearGradient
+ id="windshieldGradient" x1="-8" y1="-16" x2="8" y2="-11" gradientUnits="userSpaceOnUse">
+
+   <stop
+ stop-color="#004f86" offset="0" />
+
+   <stop stop-color="#000000" offset="1" />
+
+  </linearGradient>
+
+  <linearGradient
+ id="trainGradient" x1="-10"
+ x2="10"
+ gradientUnits="userSpaceOnUse">
+
+   <stop stop-color="#f60000" offset="0" />
+
+   <stop stop-color="#d20000" offset="0.5" />
+
+   <stop stop-color="#f60000" offset="1" />
+
+  </linearGradient>
+
   <g id="train">
-   <path d="M -10,20 L -10,-20 L 0,-26 L 10,-20 L 10,20 z" fill="black"/>
+   <path
+
+     d="M -10,15 C -10,18 -8,20 -5,20 L 5,20 C 8,20 10,18 10,15 L 10,-10 C 10,-30 -10,-30 -10,-10 L -10,15 z"
+
+     fill="url(#trainGradient)"
+     stroke="none"/>
+   <path
+
+     d="M -8,-11 C -7,-10 7,-10 8,-11 C 8,-27 -8,-27 -8,-11 z"
+     fill="url(#windshieldGradient)"
+     stroke="none"/>
   </g>
  </defs>
 
