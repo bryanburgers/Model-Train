@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Canvas Test</title>
+ <script type="text/javascript" src="utility.js" ></script>
+ <script type="text/javascript" src="endpoint.js" ></script>
+ <script type="text/javascript" src="part.js" ></script>
+ <script type="text/javascript" src="track.js" ></script>
+ <script type="text/javascript" src="train.js" ></script>
+ <script type="text/javascript" src="traverser.js" ></script>
+ <script type="text/javascript" src="session.js" ></script>
+ <script type="text/javascript">
+  var speed = 1;
+  var traverser = null;
+  var i = 128;
+  var boxSettings = {
+    rotate: 0,
+    translateX: 300,
+    translateY: 300,
+    scale: 0.44444,
+    toTransformString: function() {
+      return "translate(" + this.translateX + "," + this.translateY + ") scale(" + this.scale + ") rotate(" + this.rotate + ")";
+    },
+    update: function() {
+      document.getElementById("box").setAttribute("transform", this.toTransformString());
+    }
+  };  
+
+  addEventListener("load", function(event) {
+   document.addEventListener("click", function(event) { console.log(JSON.stringify(Session.trackPiecesToJson(pieces))); }, false);
+
+   var s = {x:Part.straight248};
+   var c45 = {x:Part.curve45_249};
+   var rc45 = {x:Part.c45_249,e:"2"};
+
+//   pieces = Track.createTrack(Utility.createResult(0,0,0),
+//     [ s
+//     , c45
+//     , c45
+//     , c45
+//     , c45
+//     , s
+//     , s
+//     , c45
+//     , c45
+//     , c45
+//     , c45
+//     , s
+//     ]);
+   pieces = [
+     Track.createTrackPiece(Part.straight248, Utility.createPosition(100,100), 0)
+   ];
+   var canvas = document.getElementById("canvas");
+   var ctx = canvas.getContext("2d");
+   for (var i = 0; i < pieces.length; i++) {
+    Track.drawTrackPieceCanvas(ctx, pieces[i]);
+   }
+
+//   var train = Train.createTrain("#train");   
+//   {
+//     var trackPiece = pieces[0];
+//     var endpoint = trackPiece.endpoints[0];
+//     traverser = trackPiece.traverserFromEndpoint(endpoint);
+//   }
+   
+//   var initialResult = traverser.evaluate(i);
+//   trainSVG = Train.createTrainSVG(document, document.getElementById("trains"), train, initialResult);
+//   setInterval(moveTrain, 10);
+  }, false);
+
+  function moveTrain() {
+//   if (speed < 0.1) return;
+
+//   var result = traverser.evaluate(i);
+//   Train.updateTrain(trainSVG, result);
+
+//   i += speed;
+//   var oldLength = traverser.length;
+//   if (i > traverser.length) {
+//     z = Train.findClosestTrackPiece(pieces, result, traverser.trackPiece);
+//     traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
+//   }
+//   while (i > oldLength) { i -= oldLength; }
+  }
+  </script>
+<!--
+  <script type="text/javascript">
+   addEventListener('load', loadEvent, false);
+   function loadEvent(event) {
+     var canvas = document.getElementById("canvas");
+     var ctx = canvas.getContext("2d");
+
+     ctx.save();
+     ctx.scale(4, 4);
+     ctx.translate(30, 30);
+     ctx.rotate(Math.PI / 16);
+
+
+     ctx.strokeRect(-10, -10, 20, 20);
+     ctx.restore();
+   }
+  </script>
+-->
+ </head>
+ <body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+ </body>
+</html>
