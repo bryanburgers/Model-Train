@@ -211,9 +211,7 @@
 
 
    var s = {x:Part.straight248};
-   var c90 = {x:Part.r90};
-   var rc90 = {x:Part.r90,e:"2"};
-   var c45 = {x:Part.c45_249};
+   var c45 = {x:Part.curve45_249};
    var rc45 = {x:Part.c45_249,e:"2"};
 
    pieces = Track.createTrack(Utility.createResult(0,0,0),
