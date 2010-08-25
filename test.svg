@@ -271,10 +271,6 @@
    <path d="M -253.5,0 A 253.5,253.5,0,0,1,-179.25,-179.25" stroke-width="1" stroke="black" fill="none" />
    <path d="M -244.5,0 A 244.5,244.5,0,0,1,-172.89,-172.89" stroke-width="1" stroke="black" fill="none" />
   </g>
-  <g id="r90">
-   <path d="M -4.5,124 A 132.5,132.5,0,0,1,124,-4.5" stroke-width="2" stroke="black" fill="none" />
-   <path d="M  4.5,124 A 123.5,123.5,0,0,1,124, 4.5" stroke-width="2" stroke="black" fill="none" />
-  </g>
 
   <linearGradient
  id="windshieldGradient" x1="-8" y1="-16" x2="8" y2="-11" gradientUnits="userSpaceOnUse">
