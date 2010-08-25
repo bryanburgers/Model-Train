@@ -8,7 +8,7 @@ var Part = (function() {
     return undefined;
   }
 
-  function createPart(id, name, svgIdentifier, length, f) {
+  function createPart(id, name, svgIdentifier, length, f, draw) {
     var endpoints =
 	[ Endpoint.createEndpoint("1", f(0), false)
 	, Endpoint.createEndpoint("2", f(1), true)
@@ -21,12 +21,31 @@ var Part = (function() {
       f: f,
       svgIdentifier: svgIdentifier,
       endpoints: endpoints,
-      endpointFromId: endpointFromId
+      endpointFromId: endpointFromId,
+      draw: draw
     };
   }
 
   function straight248Function(t) {
    return Utility.createResult(0, - (t - 0.5) * 248, 0);
+  }
+
+  function straight248DrawFunction(ctx) {
+    ctx.save();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = "1px";
+
+    ctx.beginPath();
+    ctx.moveTo(-4.5,  124);
+    ctx.lineTo(-4.5, -124);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo( 4.5,  124);
+    ctx.lineTo( 4.5, -124);
+    ctx.stroke();
+
+    ctx.restore();
   }
 
   function c45_249Function(t) {
@@ -38,9 +57,27 @@ var Part = (function() {
    return Utility.createResult(x, y, r);
   }
 
+  function c45_249DrawFunction(ctx) {
+    ctx.save();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = "1px";
+
+    ctx.beginPath();
+    ctx.moveTo(-253.5, 0);
+    ctx.arcTo(-253.5, 0, -179.25, -177.25, 45);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(-244.5, 0);
+    ctx.arcTo(-244.5, 0, -172.89, -172.89, 45);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
   var parts = {
-    straight248: createPart("straight248", "248mm Straight Track", "#straight248", 248, straight248Function),
-    "curve45-249": createPart("curve45-249", "249mm radius 45 degree Curve Track", "#curve45_249", Math.PI * 249 / 4, c45_249Function)
+    straight248: createPart("straight248", "248mm Straight Track", "#straight248", 248, straight248Function, straight248DrawFunction),
+    "curve45-249": createPart("curve45-249", "249mm radius 45 degree Curve Track", "#curve45_249", Math.PI * 249 / 4, c45_249Function, c45_249DrawFunction)
   }
 
   function allParts() {

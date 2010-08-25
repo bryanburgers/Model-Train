@@ -6,13 +6,22 @@ var Track = (function() {
 
     function newF(t) {
       var newT = t / part.length;
-      var svgRotation = document.documentElement.createSVGTransform();
-      svgRotation.setRotate(rotation, position.x, position.y);
+      var svgRotation = Utility.createSVGTransform();
+      var result = null;
+      var newPoint = null;
+      if (svgRotation) {
+        svgRotation.setRotate(rotation, position.x, position.y);
 
-      var result = part.f(newT);
-      var translatedPosition = Utility.createPosition(position.x + result.position.x, position.y + result.position.y);
-      var svgPoint = Utility.createSVGPoint(translatedPosition);
-      var newPoint = svgPoint.matrixTransform(svgRotation.matrix);
+        result = part.f(newT);
+        var translatedPosition = Utility.createPosition(position.x + result.position.x, position.y + result.position.y);
+        var svgPoint = Utility.createSVGPoint(translatedPosition);
+        newPoint = svgPoint.matrixTransform(svgRotation.matrix);
+      }
+      else {
+        // AH! What can we do with an SVGRotation!?
+        newPoint = position;
+        result = Utility.createResult(position.x, position.y, rotation);
+      }
 
       var result = Utility.createResult(newPoint.x, newPoint.y, result.rotation + rotation);
       return result;
@@ -62,6 +71,15 @@ var Track = (function() {
     use.setAttribute("transform", "rotate(" + trackPiece.rotation.toString() + ", " + trackPiece.position.x.toString() + ", " + trackPiece.position.y.toString() + ")");   
 
     parent.appendChild(use);
+  }
+
+  function drawTrackPieceCanvas(ctx, trackPiece) {
+    ctx.save();
+    ctx.translate(trackPiece.position.x);
+    ctx.translate(trackPiece.position.y);
+    ctx.rotate(trackPiece.rotation);
+    trackPiece.part.draw(ctx);
+    ctx.restore();
   }
 
   function createTrack(initialResult, parts) {
@@ -114,6 +132,7 @@ var Track = (function() {
   return {
     createTrackPiece: createTrackPiece,
     drawTrackPiece: drawTrackPiece,
+    drawTrackPieceCanvas: drawTrackPieceCanvas,
     createTrack: createTrack,
     loadTrack: loadTrack
   }

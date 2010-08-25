@@ -8,14 +8,18 @@ var Utility = (function() {
   }
 
   function createSVGPoint(position) {
-    var p = document.documentElement.createSVGPoint();
-    p.x = position.x;
-    p.y = position.y;
-    return p;
+    if (document.documentElement.createSVGPoint) {
+      var p = document.documentElement.createSVGPoint();
+      p.x = position.x;
+      p.y = position.y;
+      return p;
+    }
   }
 
   function createSVGTransform() {
-    return document.documentElement.createSVGTransform();
+    if (document.documentElement.createSVGTransform) {
+      return document.documentElement.createSVGTransform();
+    }
   }
 
   function createResult(x, y, rotation) {    
