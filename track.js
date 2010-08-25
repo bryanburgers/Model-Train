@@ -99,9 +99,22 @@ var Track = (function() {
     return arr;
   }
 
+  function loadTrack(trackJson) {
+    var pieces = trackJson.pieces;
+    var arr = [];
+    for (var i = 0; i < pieces.length; i++) {
+      var pieceDef = pieces[i];
+      var part = Part.fromId(pieceDef.pieceID);
+      var trackPiece = createTrackPiece(part, Utility.createPosition(pieceDef.x, pieceDef.y), pieceDef.rotation);
+      arr.push(trackPiece);
+    }
+    return arr;
+  }
+
   return {
     createTrackPiece: createTrackPiece,
     drawTrackPiece: drawTrackPiece,
-    createTrack: createTrack
+    createTrack: createTrack,
+    loadTrack: loadTrack
   }
 })();
