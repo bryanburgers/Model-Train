@@ -104,10 +104,9 @@
    i += secondsEllapsed * speed;
    var oldLength = traverser.length;
    if (i > traverser.length) {
+     result = traverser.evaluate(traverser.length);
      z = Train.findClosestTrackPiece(pieces, result, traverser.trackPiece);
-     if (z) {
-       traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
-     }
+     traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
    }
    while (i > oldLength) { i -= oldLength; }
    ctx.restore();
