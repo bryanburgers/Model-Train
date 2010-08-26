@@ -1,6 +1,10 @@
 var Animation = (function() {
+  var STOPPED_STATE = 0;
+  var RUNNING_STATE = 1;
+
 
   function createAnimationEngine() {
+    var t = null;
     var interval = null;
     var fps = {
       framesPerSecond: 0,
@@ -38,7 +42,7 @@ var Animation = (function() {
         fps.last = now;
 
         for (var i = 0; i < listeners.fpschange.length; i++) {
-          listeners.fpschange[i]({ target: fps, fps: framesPerSecond });
+          listeners.fpschange[i]({ target: t, type: "fpschange", fps: framesPerSecond });
         }
       }
     }
@@ -50,27 +54,33 @@ var Animation = (function() {
       lastTime = thisTime;
       frameRendered();
       for (var i = 0; i < listeners.animateframe.length; i++) {
-        listeners.animateframe[i]({ target: this, secondsEllapsed: secondsEllapsed });
+        listeners.animateframe[i]({ target: t, type: "animateframe", secondsEllapsed: secondsEllapsed });
       }
     }
 
     function startAnimation() {
       interval = setInterval(intervalFunction, 10);
+      this.state = RUNNING_STATE;
     }
 
     function stopAnimation() {
       clearInterval(interval);
+      this.state = STOPPED_STATE;
     }
 
-    return {
+    t = {
       fps: fps,
       addEventListener: addEventListener,
       startAnimation: startAnimation,
-      stopAnimation: stopAnimation
+      stopAnimation: stopAnimation,
+      state: STOPPED_STATE
     };
+    return t;
   }
 
   return {
+    STOPPED_STATE: STOPPED_STATE,
+    RUNNING_STATE: RUNNING_STATE,
     createAnimationEngine: createAnimationEngine
   }
 })();
