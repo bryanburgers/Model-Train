@@ -72,6 +72,7 @@
     mousemove: function(event) {
       if (this.isMouseDown) {
         this.update(this.element, event);
+        event.stopPropagation();
       }
     },
     createControl: function(subject) {
@@ -150,6 +151,21 @@
     }
   });
 
+  var panControl = control.createControl({
+    update: function(element, event) {
+      if (event.type == "mousedown") {
+        this.originalTranslateX = boxSettings.translateX;
+        this.originalTranslateY = boxSettings.translateY;
+        this.originalMouseX = event.layerX;
+        this.originalMouseY = event.layerY;
+      }
+      console.log(event);
+      boxSettings.translateX = this.originalTranslateX + (event.layerX - this.originalMouseX);
+      boxSettings.translateY = this.originalTranslateY + (event.layerY - this.originalMouseY);
+      boxSettings.update();
+    }
+  });
+
   var layouts = {};
   function loadLayouts() {
     var yoffset = 0;
@@ -213,6 +229,7 @@
    speedControl.addEventListeners(document.getElementById("speedControl"));
    rotationControl.addEventListeners(document.getElementById("rotationControl"));
    zoomControl.addEventListeners(document.getElementById("zoomControl"));
+   panControl.addEventListeners(document);
    document.addEventListener("click", function(event) { console.log(JSON.stringify(Session.trackPiecesToJson(pieces))); }, false);
    loadLayouts();
 
