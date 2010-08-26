@@ -9,6 +9,12 @@
  <script type="text/javascript" xlink:href="traverser.js" />
  <script type="text/javascript" xlink:href="session.js" />
  <script type="text/javascript"><![CDATA[
+  var fps = {
+    count: 0,
+    upto: 10,
+    last: new Date()
+  }
+
   var speed = 1;
   var traverser = null;
   var trainSvg = null;
@@ -258,6 +264,23 @@
      traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
    }
    while (i > oldLength) { i -= oldLength; }
+   updateFps();
+  }
+
+  function updateFps() {
+    var now = new Date();
+    fps.count++;
+    if (fps.count > fps.upto) {
+      var fpsD = document.getElementById("fps");
+      fpsD.textContent = ((fps.count * 1000) / (now - fps.last)).toString();
+
+      if (fps.last - now < 500) {
+        fps.upto = fps.upto * 1.5;
+      }
+      
+      fps.count = 0;
+      fps.last = now;
+    }
   }
  ]]></script>
  <defs>
@@ -341,5 +364,9 @@
    <rect x="0" y="0" width="20" height="100" fill="#fff"/>
    <rect id="zoom" x="0" y="56" width="20" height="44" fill="#88f"/>
    <rect x="0" y="0" width="20" height="100" stroke="#008" fill="none"/>
+ </g>
+
+ <g transform="translate(205, 5)">
+   <text id="fps" x="0" y="10"></text>
  </g>
 </svg>
