@@ -33,6 +33,7 @@ var Train = (function() {
     ctx.rotate(result.rotation * Math.PI / 180);
 
     ctx.fillStyle = "red";
+    ctx.beginPath();
     ctx.moveTo(-10,15);
     ctx.bezierCurveTo(-10,18, -8,20, -5,20);
     ctx.lineTo(5,20);

@@ -10,6 +10,8 @@
  <script type="text/javascript" src="traverser.js" ></script>
  <script type="text/javascript" src="session.js" ></script>
  <script type="text/javascript">
+  var canvas;
+  var ctx;
   var speed = 1;
   var traverser = null;
   var i = 128;
@@ -49,11 +51,20 @@
      , c45
      , s
      ]);
-   var canvas = document.getElementById("canvas");
-   var ctx = canvas.getContext("2d");
-   ctx.save();
+   canvas = document.getElementById("canvas");
+   ctx = canvas.getContext("2d");
 
-   drawScene(ctx);
+   var backgroundcanvas = document.getElementById("backgroundcanvas");
+   var bctx = backgroundcanvas.getContext("2d");
+   bctx.save();
+   drawScenePreTransform(bctx);
+   setupScene(bctx);   
+   drawScenePostTransform(bctx);
+   bctx.restore();
+
+   //ctx.drawImage(backgroundcanvas, 0, 0);
+   ctx.save();
+   setupScene(ctx);
 
    var train = Train.createTrain("#train");   
    {
@@ -71,9 +82,10 @@
   function moveTrain() {
    if (speed < 0.1) return;
 
-   var ctx = document.getElementById("canvas").getContext("2d");
+   var backgroundcanvas = document.getElementById("backgroundcanvas");
+   ctx.drawImage(backgroundcanvas, 0, 0, ctx.canvas.width, ctx.canvas.height);
    ctx.save();
-   drawScene(ctx);
+   setupScene(ctx);
 
    var result = traverser.evaluate(i);
    Train.drawTrainCanvas(ctx, null, result);
@@ -90,44 +102,31 @@
    ctx.restore();
   }
 
-  function drawScene(ctx) {
-   ctx.fillStyle = "#080";
-   ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
-
+  function setupScene(ctx) {
    ctx.scale(boxSettings.scale, boxSettings.scale);
 
    ctx.translate(boxSettings.translateX, boxSettings.translateY);
 // rotate
+  }
 
+  function drawScenePreTransform(ctx) {
+   ctx.fillStyle = "#080";
+   ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  }
+
+  function drawScenePostTransform(ctx) {
    for (var i = 0; i < pieces.length; i++) {
     Track.drawTrackPieceCanvas(ctx, pieces[i]);
    }
   }
 
   </script>
-<!--
-  <script type="text/javascript">
-   addEventListener('load', loadEvent, false);
-   function loadEvent(event) {
-     var canvas = document.getElementById("canvas");
-     var ctx = canvas.getContext("2d");
-
-     ctx.save();
-     ctx.scale(4, 4);
-     ctx.translate(30, 30);
-     ctx.rotate(Math.PI / 16);
-
-
-     ctx.strokeRect(-10, -10, 20, 20);
-     ctx.restore();
-   }
-  </script>
--->
   <style type="text/css">
     * { padding: 0px; margin: 0px; }
   </style>
  </head>
  <body>
+   <canvas id="backgroundcanvas" width="250" height="480" style="display: none;"></canvas>
    <canvas id="canvas" width="250" height="480"></canvas>
  </body>
 </html>
