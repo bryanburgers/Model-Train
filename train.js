@@ -26,10 +26,27 @@ var Train = (function() {
     trainSVG.setAttribute("transform", "rotate(" + result.rotation.toString() + ", " + result.position.x.toString() + ", " + result.position.y.toString() + ")");   
   }
 
+  function drawTrainCanvas(ctx, train, result) {
+    ctx.save();
+
+    ctx.translate(result.position.x, result.position.y);
+    ctx.rotate(result.rotation * Math.PI / 180);
+
+    ctx.fillStyle = "red";
+    ctx.moveTo(-10,15);
+    ctx.bezierCurveTo(-10,18, -8,20, -5,20);
+    ctx.lineTo(5,20);
+    ctx.bezierCurveTo(8,20, 10,18, 10,15);
+    ctx.lineTo(10,-10);
+    ctx.bezierCurveTo(10,-30, -10,-30, -10,-10);
+    ctx.lineTo(-10,15);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
   function anglesWithin(angle1, angle2, threshold) {
-    var a1 = (angle1 + 720) % 360;
-    var a2 = (angle2 + 720) % 360;
-    var d = Math.abs(a1 - a2);
+    var d = Math.abs(angle1 - angle2) % 360;
     return d < threshold;
   }
 
@@ -67,6 +84,7 @@ var Train = (function() {
     createTrain: createTrain,
     createTrainSVG: createTrainSVG,
     updateTrain: updateTrain,
+    drawTrainCanvas: drawTrainCanvas,
     findClosestTrackPiece: findClosestTrackPiece
   }
 })();

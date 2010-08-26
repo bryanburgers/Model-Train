@@ -75,9 +75,8 @@ var Track = (function() {
 
   function drawTrackPieceCanvas(ctx, trackPiece) {
     ctx.save();
-    ctx.translate(trackPiece.position.x);
-    ctx.translate(trackPiece.position.y);
-    ctx.rotate(trackPiece.rotation);
+    ctx.translate(trackPiece.position.x, trackPiece.position.y);
+    ctx.rotate(trackPiece.rotation * Math.PI / 180);
     trackPiece.part.draw(ctx);
     ctx.restore();
   }

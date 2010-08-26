@@ -14,11 +14,26 @@ var Utility = (function() {
       p.y = position.y;
       return p;
     }
+    else {
+      var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      if (svg && svg.createSVGPoint) {
+        var p = svg.createSVGPoint();
+        p.x = position.x;
+        p.y = position.y;
+        return p;
+      }
+    }
   }
 
   function createSVGTransform() {
     if (document.documentElement.createSVGTransform) {
       return document.documentElement.createSVGTransform();
+    }
+    else {
+      var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      if (svg && svg.createSVGTransform) {
+        return svg.createSVGTransform();
+      }
     }
   }
 

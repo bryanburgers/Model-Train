@@ -63,13 +63,11 @@ var Part = (function() {
     ctx.lineWidth = "1px";
 
     ctx.beginPath();
-    ctx.moveTo(-253.5, 0);
-    ctx.arcTo(-253.5, 0, -179.25, -177.25, 45);
+    ctx.arc(0,0,253.5, Math.PI, - 3 * Math.PI / 4);
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.moveTo(-244.5, 0);
-    ctx.arcTo(-244.5, 0, -172.89, -172.89, 45);
+    ctx.arc(0,0,244.5, Math.PI, - 3 * Math.PI / 4);
     ctx.stroke();
 
     ctx.restore();

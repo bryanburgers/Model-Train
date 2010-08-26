@@ -13,10 +13,11 @@
   var speed = 1;
   var traverser = null;
   var i = 128;
+  var interval = null;
   var boxSettings = {
     rotate: 0,
-    translateX: 300,
-    translateY: 300,
+    translateX: 20,
+    translateY: 520,
     scale: 0.44444,
     toTransformString: function() {
       return "translate(" + this.translateX + "," + this.translateY + ") scale(" + this.scale + ") rotate(" + this.rotate + ")";
@@ -28,60 +29,81 @@
 
   addEventListener("load", function(event) {
    document.addEventListener("click", function(event) { console.log(JSON.stringify(Session.trackPiecesToJson(pieces))); }, false);
+   document.addEventListener("click", function(event) { clearInterval(interval); }, false);
 
    var s = {x:Part.straight248};
    var c45 = {x:Part.curve45_249};
    var rc45 = {x:Part.c45_249,e:"2"};
 
-//   pieces = Track.createTrack(Utility.createResult(0,0,0),
-//     [ s
-//     , c45
-//     , c45
-//     , c45
-//     , c45
-//     , s
-//     , s
-//     , c45
-//     , c45
-//     , c45
-//     , c45
-//     , s
-//     ]);
-   pieces = [
-     Track.createTrackPiece(Part.straight248, Utility.createPosition(100,100), 0)
-   ];
+   pieces = Track.createTrack(Utility.createResult(0,0,0),
+     [ s
+     , c45
+     , c45
+     , c45
+     , c45
+     , s
+     , s
+     , c45
+     , c45
+     , c45
+     , c45
+     , s
+     ]);
    var canvas = document.getElementById("canvas");
    var ctx = canvas.getContext("2d");
-   for (var i = 0; i < pieces.length; i++) {
-    Track.drawTrackPieceCanvas(ctx, pieces[i]);
-   }
+   ctx.save();
 
-//   var train = Train.createTrain("#train");   
-//   {
-//     var trackPiece = pieces[0];
-//     var endpoint = trackPiece.endpoints[0];
-//     traverser = trackPiece.traverserFromEndpoint(endpoint);
-//   }
+   drawScene(ctx);
+
+   var train = Train.createTrain("#train");   
+   {
+     var trackPiece = pieces[0];
+     var endpoint = trackPiece.endpoints[0];
+     traverser = trackPiece.traverserFromEndpoint(endpoint);
+   }
    
-//   var initialResult = traverser.evaluate(i);
-//   trainSVG = Train.createTrainSVG(document, document.getElementById("trains"), train, initialResult);
-//   setInterval(moveTrain, 10);
+   var initialResult = traverser.evaluate(i);
+   Train.drawTrainCanvas(ctx, train, initialResult);   
+   ctx.restore();
+   interval = setInterval(moveTrain, 10);
   }, false);
 
   function moveTrain() {
-//   if (speed < 0.1) return;
+   if (speed < 0.1) return;
 
-//   var result = traverser.evaluate(i);
-//   Train.updateTrain(trainSVG, result);
+   var ctx = document.getElementById("canvas").getContext("2d");
+   ctx.save();
+   drawScene(ctx);
 
-//   i += speed;
-//   var oldLength = traverser.length;
-//   if (i > traverser.length) {
-//     z = Train.findClosestTrackPiece(pieces, result, traverser.trackPiece);
-//     traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
-//   }
-//   while (i > oldLength) { i -= oldLength; }
+   var result = traverser.evaluate(i);
+   Train.drawTrainCanvas(ctx, null, result);
+
+   i += speed;
+   var oldLength = traverser.length;
+   if (i > traverser.length) {
+     z = Train.findClosestTrackPiece(pieces, result, traverser.trackPiece);
+     if (z) {
+       traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
+     }
+   }
+   while (i > oldLength) { i -= oldLength; }
+   ctx.restore();
   }
+
+  function drawScene(ctx) {
+   ctx.fillStyle = "#080";
+   ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
+
+   ctx.scale(boxSettings.scale, boxSettings.scale);
+
+   ctx.translate(boxSettings.translateX, boxSettings.translateY);
+// rotate
+
+   for (var i = 0; i < pieces.length; i++) {
+    Track.drawTrackPieceCanvas(ctx, pieces[i]);
+   }
+  }
+
   </script>
 <!--
   <script type="text/javascript">
@@ -101,8 +123,11 @@
    }
   </script>
 -->
+  <style type="text/css">
+    * { padding: 0px; margin: 0px; }
+  </style>
  </head>
  <body>
-  <canvas id="canvas" width="400" height="400"></canvas>
+   <canvas id="canvas" width="250" height="480"></canvas>
  </body>
 </html>
