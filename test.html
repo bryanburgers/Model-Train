@@ -10,6 +10,12 @@
  <script type="text/javascript" src="traverser.js" ></script>
  <script type="text/javascript" src="session.js" ></script>
  <script type="text/javascript">
+  var fps = {
+    last: new Date(),
+    count: 0,
+    upto: 10
+  };
+ 
   var canvas;
   var ctx;
   var speed = 1;
@@ -100,6 +106,24 @@
    }
    while (i > oldLength) { i -= oldLength; }
    ctx.restore();
+
+   updateFps();
+  }
+
+  function updateFps() {
+    var now = new Date();
+    fps.count++;
+    if (fps.count > fps.upto) {
+      var fpsD = document.getElementById("fps");
+      fpsD.textContent = ((fps.count * 1000) / (now - fps.last)).toString();
+
+      if (fps.last - now < 500) {
+        fps.upto = fps.upto * 1.5;
+      }
+      
+      fps.count = 0;
+      fps.last = now;
+    }
   }
 
   function setupScene(ctx) {
@@ -128,5 +152,6 @@
  <body>
    <canvas id="backgroundcanvas" width="250" height="480" style="display: none;"></canvas>
    <canvas id="canvas" width="250" height="480"></canvas>
+   <p id="fps">&nbsp;</p>
  </body>
 </html>
