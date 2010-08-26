@@ -13,12 +13,12 @@ var Timing = (function() {
       var fps = (this.count * 1000) / (now - this.last);
       this.framesPerSecond = fps;
 
-      if (now - this.last < 500) {
-        this.upto = this.upto * 1.2;
+      if (now - this.last < 800) {
+        this.upto = Math.ceil(this.upto * 1.2);
       }
 
-      if (now - this.last > 2000) {
-        this.upto = this.upto * 0.8;
+      if (now - this.last > 1200) {
+        this.upto = Math.ceil(this.upto * 0.8);
       }      
 
       this.count = 0;
