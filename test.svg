@@ -35,17 +35,18 @@
   };
 
   function animateFrame(event) {
-    var result = traverser.evaluate(i);
-    Train.updateTrain(trainSVG, result);
-
     i += event.secondsEllapsed * speed;
     var oldLength = traverser.length;
     if (i > traverser.length) {
       result = traverser.evaluate(traverser.length);
       z = Train.findClosestTrackPiece(pieces, result, traverser.trackPiece);
       traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
+
+      while (i > oldLength) { i -= oldLength; }
     }
-    while (i > oldLength) { i -= oldLength; }
+
+    var result = traverser.evaluate(i);
+    Train.updateTrain(trainSVG, result);
   }
   
   var control = {
