@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <trackdata xmlns="tag:bryan.burgers@gmail.com,2010-08-25:train-track"><![CDATA[{"name":"Oval","pieces":[{"x":0,"y":-124,"rotation":0,"pieceID":"straight248"},{"x":249,"y":-248,"rotation":0,"pieceID":"curve45-249"},{"x":249.00000762939453,"y":-247.99998474121094,"rotation":45,"pieceID":"curve45-249"},{"x":249.0000152587891,"y":-247.99996948242188,"rotation":90,"pieceID":"curve45-249"},{"x":248.99998474121094,"y":-247.9999542236328,"rotation":135,"pieceID":"curve45-249"},{"x":498,"y":-123.99995422363281,"rotation":180,"pieceID":"straight248"},{"x":498,"y":124.00004577636719,"rotation":180,"pieceID":"straight248"},{"x":249,"y":248.00004577636722,"rotation":180,"pieceID":"curve45-249"},{"x":248.99998474121094,"y":248.0000457763672,"rotation":225,"pieceID":"curve45-249"},{"x":248.99998474121088,"y":248.00003051757812,"rotation":270,"pieceID":"curve45-249"},{"x":248.99999237060547,"y":248.00001525878906,"rotation":315,"pieceID":"curve45-249"},{"x":-0.000004252209722284108,"y":124.00001525878906,"rotation":360,"pieceID":"straight248"}]}]]></trackdata>
  <trackdata xmlns="tag:bryan.burgers@gmail.com,2010-08-25:train-track"><![CDATA[{"name":"Other","pieces":[{"x":0,"y":-124,"rotation":0,"pieceID":"straight248"},{"x":249,"y":-248,"rotation":0,"pieceID":"curve45-249"},{"x":249.00000762939453,"y":-247.99998474121094,"rotation":45,"pieceID":"curve45-249"},{"x":249.0000152587891,"y":-247.99996948242188,"rotation":90,"pieceID":"curve45-249"},{"x":248.99998474121094,"y":-247.9999542236328,"rotation":135,"pieceID":"curve45-249"},{"x":747.0000152587891,"y":-247.99995422363278,"rotation":315,"pieceID":"curve45-249"},{"x":747.0000152587891,"y":-247.99996185302734,"rotation":630,"pieceID":"curve45-249"},{"x":747.0000000000006,"y":250.00003051757812,"rotation":810,"pieceID":"curve45-249"},{"x":746.9999847412109,"y":250.0000457763672,"rotation":855,"pieceID":"curve45-249"},{"x":996.0000000000001,"y":374.0000457763672,"rotation":900,"pieceID":"straight248"},{"x":747,"y":498.0000610351564,"rotation":900,"pieceID":"curve45-249"},{"x":746.9999847412109,"y":498.0000457763672,"rotation":945,"pieceID":"curve45-249"},{"x":623,"y":747.0000610351561,"rotation":990,"pieceID":"straight248"},{"x":375,"y":747.0000610351561,"rotation":990,"pieceID":"straight248"},{"x":251.00000000000028,"y":498.00006103515625,"rotation":990,"pieceID":"curve45-249"},{"x":251.00001525878906,"y":498.0000457763672,"rotation":1035,"pieceID":"curve45-249"},{"x":2.000000238418488,"y":374.0000305175781,"rotation":1080,"pieceID":"straight248"},{"x":2.000000238418488,"y":126.00003051757812,"rotation":1080,"pieceID":"straight248"}]}]]></trackdata>
- <script type="text/javascript" xlink:href="timing.js" />
+ <script type="text/javascript" xlink:href="animation.js" />
  <script type="text/javascript" xlink:href="utility.js" />
  <script type="text/javascript" xlink:href="endpoint.js" />
  <script type="text/javascript" xlink:href="part.js" />
@@ -10,8 +10,9 @@
  <script type="text/javascript" xlink:href="traverser.js" />
  <script type="text/javascript" xlink:href="session.js" />
  <script type="text/javascript"><![CDATA[
-  var fps = Timing.createFPSMonitor();
-  fps.addEventListener("fpschange", function(event) {
+  animationEngine = Animation.createAnimationEngine();
+  animationEngine.addEventListener("animateframe", animateFrame, false);
+  animationEngine.addEventListener("fpschange", function(event) {
     var fpsD = document.getElementById("fps");
     fpsD.textContent = event.fps.toString();
   }, false);
@@ -32,6 +33,20 @@
       document.getElementById("box").setAttribute("transform", this.toTransformString());
     }
   };
+
+  function animateFrame(event) {
+    var result = traverser.evaluate(i);
+    Train.updateTrain(trainSVG, result);
+
+    i += event.secondsEllapsed * speed;
+    var oldLength = traverser.length;
+    if (i > traverser.length) {
+      result = traverser.evaluate(traverser.length);
+      z = Train.findClosestTrackPiece(pieces, result, traverser.trackPiece);
+      traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
+    }
+    while (i > oldLength) { i -= oldLength; }
+  }
   
   function speedChanged(event) {
     var p = document.documentElement.createSVGPoint();
@@ -249,29 +264,8 @@
    
    var initialResult = traverser.evaluate(i);
    trainSVG = Train.createTrainSVG(document, document.getElementById("trains"), train, initialResult);
-   setInterval(moveTrain, 10);
+   animationEngine.startAnimation();
   }, false);
-
-  var lastTime = new Date();
-  function moveTrain() {
-   if (speed < 0.1) return;
-   var thisTime = new Date();
-   var secondsEllapsed = (thisTime - lastTime) / 1000;
-   lastTime = thisTime;
-
-   var result = traverser.evaluate(i);
-   Train.updateTrain(trainSVG, result);
-
-   i += secondsEllapsed * speed;
-   var oldLength = traverser.length;
-   if (i > traverser.length) {
-     result = traverser.evaluate(traverser.length);
-     z = Train.findClosestTrackPiece(pieces, result, traverser.trackPiece);
-     traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
-   }
-   while (i > oldLength) { i -= oldLength; }
-   fps.frameRendered();
-  }
  ]]></script>
  <defs>
   <g id="straight248">
