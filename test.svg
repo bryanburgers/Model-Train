@@ -266,7 +266,7 @@
    var oldLength = traverser.length;
    if (i > traverser.length) {
      result = traverser.evaluate(traverser.length);
-     z = Train.findClosestTrackPiece(pieces, r, traverser.trackPiece);
+     z = Train.findClosestTrackPiece(pieces, result, traverser.trackPiece);
      traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
    }
    while (i > oldLength) { i -= oldLength; }
