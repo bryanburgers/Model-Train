@@ -48,22 +48,6 @@
     while (i > oldLength) { i -= oldLength; }
   }
   
-  function speedChanged(event) {
-    var p = document.documentElement.createSVGPoint();
-    p.x = event.x;
-    p.y = event.y;
-
-    var p2 = p.matrixTransform(this.getCTM().inverse());
-
-    var y = 100 - p2.y;
-    if (y < 7.5) { y = 0; }
-      
-    var speedSVG = document.getElementById("speed");
-    speedSVG.setAttribute("y", (100 - y).toString());
-    speedSVG.setAttribute("height", y.toString());
-    speed = y / 0.25;
-  }
-
   var control = {
     isMouseDown: false,
     element: null,
