@@ -19,7 +19,7 @@
  
   var canvas;
   var ctx;
-  var speed = 1;
+  var speed = 100; // millimeters/second
   var traverser = null;
   var i = 128;
   var interval = null;
@@ -86,8 +86,12 @@
    interval = setInterval(moveTrain, 10);
   }, false);
 
+  var lastTime = new Date();
   function moveTrain() {
    if (speed < 0.1) return;
+   var thisTime = new Date();
+   var secondsEllapsed = (thisTime - lastTime) / 1000;
+   lastTime = thisTime;
 
    var backgroundcanvas = document.getElementById("backgroundcanvas");
    ctx.drawImage(backgroundcanvas, 0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -97,7 +101,7 @@
    var result = traverser.evaluate(i);
    Train.drawTrainCanvas(ctx, null, result);
 
-   i += speed;
+   i += secondsEllapsed * speed;
    var oldLength = traverser.length;
    if (i > traverser.length) {
      z = Train.findClosestTrackPiece(pieces, result, traverser.trackPiece);
