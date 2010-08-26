@@ -274,8 +274,12 @@
       var fpsD = document.getElementById("fps");
       fpsD.textContent = ((fps.count * 1000) / (now - fps.last)).toString();
 
-      if (fps.last - now < 500) {
-        fps.upto = fps.upto * 1.5;
+      if (now - fps.last < 500) {
+        fps.upto = fps.upto * 1.2;
+      }
+
+      if (now - fps.last > 2000) {
+        fps.upto = fps.upto * 0.8;
       }
       
       fps.count = 0;
