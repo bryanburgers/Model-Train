@@ -2,6 +2,7 @@
 <html>
  <head>
   <title>Canvas Test</title>
+ <script type="text/javascript" src="timing.js" ></script>
  <script type="text/javascript" src="utility.js" ></script>
  <script type="text/javascript" src="endpoint.js" ></script>
  <script type="text/javascript" src="part.js" ></script>
@@ -10,11 +11,11 @@
  <script type="text/javascript" src="traverser.js" ></script>
  <script type="text/javascript" src="session.js" ></script>
  <script type="text/javascript">
-  var fps = {
-    last: new Date(),
-    count: 0,
-    upto: 10
-  };
+  var fps = Timing.createFPSMonitor();
+  fps.addEventListener("fpschange", function(event) {
+    var fpsD = document.getElementById("fps");
+    fpsD.textContent = event.fps.toString();
+  }, false);
  
   var canvas;
   var ctx;
@@ -107,27 +108,7 @@
    while (i > oldLength) { i -= oldLength; }
    ctx.restore();
 
-   updateFps();
-  }
-
-  function updateFps() {
-    var now = new Date();
-    fps.count++;
-    if (fps.count > fps.upto) {
-      var fpsD = document.getElementById("fps");
-      fpsD.textContent = ((fps.count * 1000) / (now - fps.last)).toString();
-
-      if (now - fps.last < 500) {
-        fps.upto = fps.upto * 1.2;
-      }
-
-      if (now - fps.last > 2000) {
-        fps.upto = fps.upto * 0.8;
-      }      
-
-      fps.count = 0;
-      fps.last = now;
-    }
+   fps.frameRendered();
   }
 
   function setupScene(ctx) {
