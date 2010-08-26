@@ -11,6 +11,7 @@ var Timing = (function() {
     this.count++;
     if (this.count > this.upto) {
       var fps = (this.count * 1000) / (now - this.last);
+      this.framesPerSecond = fps;
 
       if (now - this.last < 500) {
         this.upto = this.upto * 1.2;
@@ -32,6 +33,7 @@ var Timing = (function() {
   function createFPSMonitor() {
     return {
       listeners: [],
+      framesPerSecond: 0,
       count: 0,
       upto: 2,
       last: new Date(),
