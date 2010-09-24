@@ -48,8 +48,8 @@ var Part = (function() {
     ctx.restore();
   }
 
-  function c45_249Function(t) {
-   var h = 249;
+  function c45_248Function(t) {
+   var h = 248;
    var theta = t * (Math.PI / 4);
    var x = - h * Math.cos(theta);
    var y = - h * Math.sin(theta);
@@ -57,17 +57,17 @@ var Part = (function() {
    return Utility.createResult(x, y, r);
   }
 
-  function c45_249DrawFunction(ctx) {
+  function c45_248DrawFunction(ctx) {
     ctx.save();
     ctx.strokeStyle = "black";
     ctx.lineWidth = "1px";
 
     ctx.beginPath();
-    ctx.arc(0,0,253.5, Math.PI, - 3 * Math.PI / 4);
+    ctx.arc(0,0,252.5, Math.PI, - 3 * Math.PI / 4);
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.arc(0,0,244.5, Math.PI, - 3 * Math.PI / 4);
+    ctx.arc(0,0,243.5, Math.PI, - 3 * Math.PI / 4);
     ctx.stroke();
 
     ctx.restore();
@@ -75,13 +75,13 @@ var Part = (function() {
 
   var parts = {
     straight248: createPart("straight248", "248mm Straight Track", "#straight248", 248, straight248Function, straight248DrawFunction),
-    "curve45-249": createPart("curve45-249", "249mm radius 45 degree Curve Track", "#curve45_249", Math.PI * 249 / 4, c45_249Function, c45_249DrawFunction)
+    "curve45-248": createPart("curve45-248", "248mm radius 45 degree Curve Track", "#curve45_248", Math.PI * 248 / 4, c45_248Function, c45_248DrawFunction)
   }
 
   function allParts() {
     return [
       parts.straight248,
-      parts.curve45_249
+      parts.curve45_248
     ];
   }
 
@@ -94,7 +94,7 @@ var Part = (function() {
     fromId: fromId,
 
     straight248: parts.straight248,
-    curve45_249: parts["curve45-249"],
-    "curve45-249": parts["curve45-249"]
+    curve45_248: parts["curve45-248"],
+    "curve45-248": parts["curve45-248"]
   }
 })();
