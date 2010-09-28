@@ -2,11 +2,11 @@ function Bezier(x1,y1,x2,y2,x3,y3,x4,y4) {
   this.x1 = x1 || 0;
   this.y1 = y1 || 0;
   this.x2 = x2 || 0;
-  this.y2 = y2 || 1;
+  this.y2 = y2 || 0;
   this.x3 = x3 || 0;
-  this.y3 = y3 || 1;
-  this.x4 = x4 || 1;
-  this.y4 = y4 || 1;
+  this.y3 = y3 || 0;
+  this.x4 = x4 || 0;
+  this.y4 = y4 || 0;
 }
 
 Bezier.prototype.getPoint = function(t) {
