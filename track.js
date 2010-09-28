@@ -1,138 +1,133 @@
-var Track = (function() {
-  var SVG_NS = "http://www.w3.org/2000/svg";
-  var XLINK_NS = "http://www.w3.org/1999/xlink";
+// Depends on: angle.js, part.js, bezier-curve.js
 
-  function createTrackPiece(part, position, rotation) {
+var SVG_NS = "http://www.w3.org/2000/svg";
+var XLINK_NS = "http://www.w3.org/1999/xlink";
 
-    function newF(t) {
-      var newT = t / part.length;
-      var svgRotation = Utility.createSVGTransform();
-      var result = null;
-      var newPoint = null;
-      if (svgRotation) {
-        svgRotation.setRotate(rotation, position.x, position.y);
+function TransformedTraverser(traverser, position, degrees) {
+  this.length = traverser.length;
+  this.traverser = traverser;
+  this.position = position;
+  this.degrees = degrees;
+  this.radians = degrees * Math.PI / 180;
+}
 
-        result = part.f(newT);
-        var translatedPosition = Utility.createPosition(position.x + result.position.x, position.y + result.position.y);
-        var svgPoint = Utility.createSVGPoint(translatedPosition);
-        newPoint = svgPoint.matrixTransform(svgRotation.matrix);
-      }
-      else {
-        // AH! What can we do with an SVGRotation!?
-        newPoint = position;
-        result = Utility.createResult(position.x, position.y, rotation);
-      }
+TransformedTraverser.prototype.getPoint = function(t) {
+  var svgRotation = Utility.createSVGTransform();
+  var result = null;
+  var newPoint = null;
 
-      var result = Utility.createResult(newPoint.x, newPoint.y, result.rotation + rotation);
-      return result;
-    }
+  var rotation = this.degrees;
+  var position = this.position;
+  var traverser = this.traverser;
 
-    var initialResult = newF(0);
-    var initialPosition = initialResult.position;
+  if (svgRotation) {
+    svgRotation.setRotate(rotation, position.x, position.y);
 
-    var finalResult = newF(part.length);
-    var finalPosition = finalResult.position;
-
-    var endpoints =
-	[ Endpoint.createEndpoint("1", initialResult, false)
-	, Endpoint.createEndpoint("2", finalResult, true)
-	];
-
-    function traverserFromEndpoint(endpoint) {
-      var traverserF = newF;
-      if (endpoint.isFinal) {
-        traverserF = function(t) {
-          var result = newF(part.length - t);
-          return Utility.createResult(result.position.x, result.position.y, result.rotation + 180);
-        };
-      }
-      return Traverser.createTraverser(traverserF, part.length, this, endpoint);
-    }
-
-    return {
-      get part() { return part; },
-      get position() { return position; },
-      get rotation() { return rotation; },
-      get initialResult() { return initialResult; },
-      get initialPosition() { return initialPosition; },
-      get finalResult() { return finalResult; },
-      get finalPosition() { return finalPosition; },
-      get endpoints() { return endpoints; },
-      get f() { return newF; },
-      get traverserFromEndpoint() { return traverserFromEndpoint; }
-    };
-  }
-
-  function drawTrackPiece(document, parent, trackPiece) {
-    var use = document.createElementNS(SVG_NS, "use");
-    use.setAttribute("x", trackPiece.position.x);
-    use.setAttribute("y", trackPiece.position.y);
-    use.setAttributeNS(XLINK_NS, "href", trackPiece.part.svgIdentifier);
-    use.setAttribute("transform", "rotate(" + trackPiece.rotation.toString() + ", " + trackPiece.position.x.toString() + ", " + trackPiece.position.y.toString() + ")");   
-
-    parent.appendChild(use);
-  }
-
-  function drawTrackPieceCanvas(ctx, trackPiece) {
-    ctx.save();
-    ctx.translate(trackPiece.position.x, trackPiece.position.y);
-    ctx.rotate(trackPiece.rotation * Math.PI / 180);
-    trackPiece.part.draw(ctx);
-    ctx.restore();
-  }
-
-  function createTrack(initialResult, parts) {
-    var currentResult = initialResult;
-    var arr = [];
-    for (var i = 0; i < parts.length; i++) {
-      var part = parts[i].x;
-      var endpointId = parts[i].e || "1";
-      var endpoint = part.endpointFromId(endpointId);
-      var partResult = endpoint.result;
-      var svgPartPoint = Utility.createSVGPoint(partResult.position);
-      var svgTransform = Utility.createSVGTransform();
-      svgTransform.setRotate(currentResult.rotation - (endpoint.isFinal ? 180 + partResult.rotation : 0), 0, 0);
-      var svgTransformedPoint = svgPartPoint.matrixTransform(svgTransform.matrix);
-
-      var newPosition = Utility.createPosition(currentResult.position.x - svgTransformedPoint.x, currentResult.position.y - svgTransformedPoint.y);
-
-      var pieceRotation = currentResult.rotation;
-
-      if (endpoint.isFinal) {
-        pieceRotation = currentResult.rotation + 180 - partResult.rotation;
-      }
-
-      var trackPiece = createTrackPiece(part, newPosition, pieceRotation);
-      arr.push(trackPiece);
-
-      if (endpoint.isFinal) {
-        currentResult = Utility.createResult(trackPiece.initialResult.position.x, trackPiece.initialResult.position.y, trackPiece.initialResult.rotation + 180);
-      }
-      else {
-        currentResult = trackPiece.finalResult;
-      }
-
-    }
-    return arr;
-  }
-
-  function loadTrack(trackJson) {
-    var pieces = trackJson.pieces;
-    var arr = [];
-    for (var i = 0; i < pieces.length; i++) {
-      var pieceDef = pieces[i];
-      var part = Part.fromId(pieceDef.pieceID);
-      var trackPiece = createTrackPiece(part, Utility.createPosition(pieceDef.x, pieceDef.y), pieceDef.rotation);
-      arr.push(trackPiece);
-    }
-    return arr;
+    result = traverser.getPoint(t);
+    var translatedPosition = Utility.createPosition(position.x + result.x, position.y + result.y);
+    var svgPoint = Utility.createSVGPoint(translatedPosition);
+    newPoint = svgPoint.matrixTransform(svgRotation.matrix);
   }
 
   return {
-    createTrackPiece: createTrackPiece,
-    drawTrackPiece: drawTrackPiece,
-    drawTrackPieceCanvas: drawTrackPieceCanvas,
-    createTrack: createTrack,
-    loadTrack: loadTrack
+    x: newPoint.x,
+    y: newPoint.y
   }
-})();
+}
+
+TransformedTraverser.prototype.getDegrees = function(t) {
+  return Angle.constrainDegrees(this.traverser.getDegrees(t) + this.degrees);
+}
+
+TransformedTraverser.prototype.getRadians = function(t) {
+  return Angle.constrainRadians(this.traverser.getRadians(t) + this.radians);
+}
+
+TransformedTraverser.prototype.getInverseTraverser = function(t) {
+  return new TransformedTraverser(self.traverser.getInverseTraverser(), self.position, self.degrees);
+}
+
+function TrackPiece(part, position, degrees) {
+  this.part = part;
+  this.position = position;
+  this.degrees = degrees;
+  this.radians = degrees * Math.PI / 180;
+}
+
+TrackPiece.prototype.getForwardTraversers = function() {
+  var a = [];
+  var partTraversers = this.part.getForwardTraversers();
+  for (var i = 0; i < partTraversers.length; i++) {
+    a[i] = new TransformedTraverser(partTraversers[i], this.position, this.degrees);
+  }
+  return a;
+}
+
+TrackPiece.prototype.getBackwardTraversers = function() {
+  var a = [];
+  var partTraversers = this.part.getBackwardTraversers();
+  for (var i = 0; i < partTraversers.length; i++) {
+    a[i] = new TransformedTraverser(partTraversers[i], this.position, this.degrees);
+  }
+  return a;
+}
+
+TrackPiece.prototype.getEndpoints = Part.prototype.getEndpoints;
+
+TrackPiece.prototype.drawSVG = function(parent) {
+  var document = parent.ownerDocument;
+
+  var use = document.createElementNS(SVG_NS, "use");
+  use.setAttribute("x", this.position.x);
+  use.setAttribute("y", this.position.y);
+  use.setAttributeNS(XLINK_NS, "href", this.part.svgIdentifier);
+  use.setAttribute("transform", "rotate(" + this.degrees.toString() + ", " + this.position.x.toString() + ", " + this.position.y.toString() + ")");
+
+  parent.appendChild(use);
+}
+
+function createTrack(initialPosition, initialDegrees, parts) {
+  var currentPosition = initialPosition;
+  var currentDegrees = initialDegrees;
+  var arr = [];
+  for (var i = 0; i < parts.length; i++) {
+    var part = parts[i].x;
+    var endpointId = parts[i].e || 0;
+    var endpoint = part.getEndpoints()[endpointId];
+
+    var svgPartPoint = Utility.createSVGPoint(endpoint.position);
+    var svgTransform = Utility.createSVGTransform();
+
+    svgTransform.setRotate(currentDegrees - (endpoint.isFinal ? 180 + endpoint.degrees : 0), 0, 0);
+    var svgTransformedPoint = svgPartPoint.matrixTransform(svgTransform.matrix);
+
+    var newPosition = {x:currentPosition.x - svgTransformedPoint.x, y:currentPosition.y - svgTransformedPoint.y};
+    console.log(newPosition);
+
+    var pieceRotation = currentDegrees;
+
+    if (endpoint.isFinal) {
+      pieceRotation = currentDegrees + 180 - endpoint.degrees;
+    }
+
+    var trackPiece = new TrackPiece(part, newPosition, pieceRotation);
+    arr.push(trackPiece);
+
+    var t = trackPiece.getEndpoints()[endpointId].getFirstTraverser();
+    currentPosition = t.getPoint(t.length);
+    currentDegrees = t.getDegrees(t.length);    
+  }
+  return arr;
+}
+
+function loadTrack(trackJson) {
+  var pieces = trackJson.pieces;
+  var arr = [];
+  for (var i = 0; i < pieces.length; i++) {
+    var pieceDef = pieces[i];
+    var part = Part.fromId(pieceDef.pieceID);
+    var trackPiece = createTrackPiece(part, Utility.createPosition(pieceDef.x, pieceDef.y), pieceDef.rotation);
+    arr.push(trackPiece);
+  }
+  return arr;
+}

@@ -1,129 +1,82 @@
-var Part = (function() {
-  var TRACK_SIZE = 248;
-  var HALF_SIZE = TRACK_SIZE / 2;
+// Depends on: angle.js, endpoint.js
 
-  function endpointFromId(id) {
-    if (id == "1") { return this.endpoints[0]; }
-    if (id == "2") { return this.endpoints[1]; }
-    return undefined;
+function Part(svgIdentifier, beziers) {
+  this.svgIdentifier = svgIdentifier;
+  this.beziers = beziers || [];
+}
+
+Part.prototype.getForwardTraversers = function() {
+  var a = [];
+  for (var i = 0; i < this.beziers.length; i++) {
+    a[i] = new BezierTraverser(this.beziers[i], false);
   }
+  return a;
+}
 
-  function createPart(id, name, svgIdentifier, length, f, draw) {
-    var endpoints =
-	[ Endpoint.createEndpoint("1", f(0), false)
-	, Endpoint.createEndpoint("2", f(1), true)
-	];
-
-    return {
-      id: id,
-      name: name,
-      length: length,
-      f: f,
-      svgIdentifier: svgIdentifier,
-      endpoints: endpoints,
-      endpointFromId: endpointFromId,
-      draw: draw
-    };
+Part.prototype.getBackwardTraversers = function() {
+  var a = [];
+  for (var i = 0; i < this.beziers.length; i++) {
+    a[i] = new BezierTraverser(this.beziers[i], true);
   }
+  return a;
+}
 
-  function createPartFromBezier(id, name, svgIdentifier, bezier) {
-    var length = bezier.calculateLength(1024);
+function endpointsEqual(endpoint1, endpoint2) {
+  var diffx = endpoint1.position.x - endpoint2.position.x;
+  var diffy = endpoint1.position.y - endpoint2.position.y;
+  var locationDifference = Math.sqrt(diffx * diffx + diffy * diffy);
 
-    var f = function(t) {
-      var p = bezier.getPoint(t);
-      var r = bezier.getDegrees(t) + 90;
-      return Utility.createResult(p.x, p.y, r);
-    }
+  return locationDifference < 1 && Angle.degreesWithin(endpoint1.degrees, endpoint2.degrees, 1);
+}
 
-    var endpoints =
-	[ Endpoint.createEndpoint("1", f(0), false)
-	, Endpoint.createEndpoint("2", f(1), true)
-	];        
+Part.prototype.getEndpoints = function() {
+  var a = [];
+  var aindex = 0;
+  var forwardTraversers = this.getForwardTraversers();
+  var backwardTraversers = this.getBackwardTraversers();
 
-    return {
-      id: id,
-      name: name,
-      length: length,
-      f: f,
-      bezier: bezier,
-      svgIdentifier: svgIdentifier,
-      endpoints: endpoints,
-      endpointFromId: endpointFromId,
-      draw: function() {}
-    };
+  var ft = forwardTraversers[0];
+  a[0] = new Endpoint(ft.getPoint(0), ft.getDegrees(0), true);
+  a[0].traversers[0] = ft;
+  a[1] = new Endpoint(ft.getPoint(ft.length), ft.getDegrees(ft.length), false);
+  a[1].traversers[0] = backwardTraversers[0];
+  return a;
+}
+
+function BezierTraverser(bezier, reverse) {
+  this.length = bezier.calculateLength(1024);
+  this.bezier = bezier;
+  this.reverse = reverse;
+}
+
+BezierTraverser.prototype.getPoint = function(t) {
+  var tprime = t / this.length;
+  if (this.reverse) {
+    tprime = 1 - tprime;
   }
+  return this.bezier.getPoint(tprime);
+}
 
-  function straight248Function(t) {
-   return Utility.createResult(0, - (t - 0.5) * 248, 0);
+BezierTraverser.prototype.getRadians = function(t) {
+  var tprime = t / this.length;
+  var offset = Math.PI / 4;
+  if (this.reverse) {
+    tprime = 1 - tprime;
+    offset = -offset;
+  }    
+  return Angle.constrainRadians(this.bezier.getRadians(tprime) + offset);
+}
+
+BezierTraverser.prototype.getDegrees = function(t) {
+  var tprime = t / this.length;
+  var offset = 90;
+  if (this.reverse) {
+    tprime = 1 - tprime;
+    offset = -offset;
   }
+  return Angle.constrainDegrees(this.bezier.getDegrees(tprime) + offset);
+}
 
-  function straight248DrawFunction(ctx) {
-    ctx.save();
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = "1px";
-
-    ctx.beginPath();
-    ctx.moveTo(-4.5,  124);
-    ctx.lineTo(-4.5, -124);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo( 4.5,  124);
-    ctx.lineTo( 4.5, -124);
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  function c45_248Function(t) {
-   var h = 248;
-   var theta = t * (Math.PI / 4);
-   var x = - h * Math.cos(theta);
-   var y = - h * Math.sin(theta);
-   var r = t * 45;
-   return Utility.createResult(x, y, r);
-  }
-
-  function c45_248DrawFunction(ctx) {
-    ctx.save();
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = "1px";
-
-    ctx.beginPath();
-    ctx.arc(0,0,252.5, Math.PI, - 3 * Math.PI / 4);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(0,0,243.5, Math.PI, - 3 * Math.PI / 4);
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  var parts = {
-    straight248: createPart("straight248", "248mm Straight Track", "#straight248", 248, straight248Function, straight248DrawFunction),
-    "curve45-248": createPart("curve45-248", "248mm radius 45 degree Curve Track", "#curve45_248", Math.PI * 248 / 4, c45_248Function, c45_248DrawFunction)    
-  }
-
-  function allParts() {
-    return [
-      parts.straight248,
-      parts.curve45_248
-    ];
-  }
-
-  function fromId(id) {
-    return parts[id];
-  }
-
-  return {
-    allParts: allParts,
-    fromId: fromId,
-
-    createPartFromBezier: createPartFromBezier,
-
-    straight248: parts.straight248,
-    curve45_248: parts["curve45-248"],
-    "curve45-248": parts["curve45-248"]
-  }
-})();
+BezierTraverser.prototype.getInverseTraverser = function() {
+  return new BezierTraverser(this.bezier, !this.reverse);
+}

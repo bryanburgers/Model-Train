@@ -1,26 +1,16 @@
-var Endpoint = (function() {
+function Endpoint(position, degrees, isInitial) {
+  this.position = position;
+  this.degrees = degrees;
+  this.radians = degrees * Math.PI / 180;
+  this.isInitial = isInitial;
+  this.isFinal = !isInitial;
+  this.traversers = [];
+}
 
-  function createEndpoint(id, result, isFinal) {
-    var position = result.position;
-    var inRotation = result.rotation;
-    var outRotation = (inRotation + 180) % 360;
+Endpoint.prototype.getFirstTraverser = function() {
+  return this.traversers[0];
+}
 
-    if (isFinal) {
-      outRotation = result.rotation;
-      inRotation = (outRotation + 180) % 360;
-    }
-
-    return {
-      id: id,
-      result: result,
-      position: position,
-      isFinal: isFinal,
-      inRotation: inRotation,
-      outRotation: outRotation
-    };
-  }
-
-  return {
-    createEndpoint: createEndpoint
-  }
-})();
+Endpoint.prototype.getRandomTraverser = function() {
+  return this.traversers[0];
+}

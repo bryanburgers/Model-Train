@@ -2,6 +2,7 @@
      xmlns:track="tag:bryan.burgers@gmail.com,2010:train-track">
  <track:trackdata><![CDATA[{"name":"Oval","pieces":[{"x":0,"y":-124,"rotation":0,"pieceID":"straight248"},{"x":248,"y":-248,"rotation":0,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":-248,"rotation":45,"pieceID":"curve45-248"},{"x":248.0000152587891,"y":-248,"rotation":90,"pieceID":"curve45-248"},{"x":248,"y":-248,"rotation":135,"pieceID":"curve45-248"},{"x":496,"y":-124,"rotation":180,"pieceID":"straight248"},{"x":496,"y":124,"rotation":180,"pieceID":"straight248"},{"x":248,"y":248.00000000000003,"rotation":180,"pieceID":"curve45-248"},{"x":248,"y":248,"rotation":225,"pieceID":"curve45-248"},{"x":247.99999999999994,"y":248,"rotation":270,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":248,"rotation":315,"pieceID":"curve45-248"},{"x":0.000007616087229149769,"y":124,"rotation":360,"pieceID":"straight248"}]}]]></track:trackdata>
  <track:trackdata><![CDATA[{"name":"Other","pieces":[{"x":0,"y":-124,"rotation":0,"pieceID":"straight248"},{"x":248,"y":-248,"rotation":0,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":-248,"rotation":45,"pieceID":"curve45-248"},{"x":248.0000152587891,"y":-248,"rotation":90,"pieceID":"curve45-248"},{"x":248,"y":-248,"rotation":135,"pieceID":"curve45-248"},{"x":744.0000152587891,"y":-248,"rotation":315,"pieceID":"curve45-248"},{"x":744,"y":-248.00000762939453,"rotation":630,"pieceID":"curve45-248"},{"x":744.0000000000006,"y":248,"rotation":810,"pieceID":"curve45-248"},{"x":744,"y":248,"rotation":855,"pieceID":"curve45-248"},{"x":992.0000000000001,"y":372,"rotation":900,"pieceID":"straight248"},{"x":744,"y":496.00000000000017,"rotation":900,"pieceID":"curve45-248"},{"x":744,"y":496,"rotation":945,"pieceID":"curve45-248"},{"x":620,"y":743.9999999999999,"rotation":990,"pieceID":"straight248"},{"x":372,"y":743.9999999999999,"rotation":990,"pieceID":"straight248"},{"x":248.00000000000028,"y":496,"rotation":990,"pieceID":"curve45-248"},{"x":248,"y":496,"rotation":1035,"pieceID":"curve45-248"},{"x":-0.0000031735063204729123,"y":372,"rotation":1080,"pieceID":"straight248"},{"x":-0.0000031735063204729123,"y":124,"rotation":1080,"pieceID":"straight248"}]}]]></track:trackdata>
+ <script type="text/javascript" xlink:href="angle.js" />
  <script type="text/javascript" xlink:href="bezier-curve.js" />
  <script type="text/javascript" xlink:href="animation.js" />
  <script type="text/javascript" xlink:href="utility.js" />
@@ -40,15 +41,17 @@
     i += event.secondsEllapsed * speed;
     var oldLength = traverser.length;
     if (i > traverser.length) {
-      result = traverser.evaluate(traverser.length);
-      z = Train.findClosestTrackPiece(pieces, result, traverser.trackPiece);
+      var result = traverser.getPoint(traverser.length);
+      var rotation = traverser.getDegrees(traverser.length);
+      z = Train.findClosestTrackPiece(pieces, {position:result,rotation:rotation}, traverser.trackPiece);
       traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
 
       while (i > oldLength) { i -= oldLength; }
     }
 
-    var result = traverser.evaluate(i);
-    Train.updateTrain(trainSVG, result);
+    var result = traverser.getPoint(i);
+    var rotation = traverser.getDegrees(i);
+    Train.updateTrain(trainSVG, {position:result,rotation:rotation});
   }
   
   var control = {
@@ -233,43 +236,48 @@
    zoomControl.addEventListeners(document.getElementById("zoomControl"));
    panControl.addEventListeners(document);
    document.addEventListener("click", function(event) { console.log(JSON.stringify(Session.trackPiecesToJson(pieces))); }, false);
-   loadLayouts();
+   //loadLayouts();
 
-   var pc90 = Part.createPartFromBezier("curve90-248", "90 degree curve", "#curve90_248", new Bezier(-248,0,-248,-136.966,-136.966,-248,0,-248));
+   ps = new Part("#straight248", [Bezier.parsePath("M 0 124 C 0 80 0 -80 0 -124")]);
+   pc90 = new Part("#curve90_248", [Bezier.parsePath("M -248 0 C -248 -136.966 -136.966 -248 0 -248")]);
 
-   var s = {x:Part.straight248};
-   var c45 = {x:Part.curve45_248};
-   var rc45 = {x:Part.curve45_248,e:"2"};
+   var s = {x:ps};
+   //var c45 = {x:Part.curve45_248};
+   //var rc45 = {x:Part.curve45_248,e:1};
 
    var c90 = {x:pc90};
+   var rc90 = {x:pc90,e:1};
 
-   pieces = Track.createTrack(Utility.createResult(0,0,0),
+   pieces = createTrack({x:0,y:0}, 0,
      [ s
      , c90
-     , c45
-     , c45
+     , c90
+     , rc90
+     , c90
+     , s
+     , c90
      , s
      , s
-     , c45
-     , c45
-     , c45
-     , c45
+     , c90
+     , s
      , s
      ]);
    var parent = document.getElementById("tracks");
+
    for (var i = 0; i < pieces.length; i++) {
-    Track.drawTrackPiece(document, parent, pieces[i]);
+    pieces[i].drawSVG(parent);
    }
 
    var train = Train.createTrain("#train");   
    {
      var trackPiece = pieces[0];
-     var endpoint = trackPiece.endpoints[0];
-     traverser = trackPiece.traverserFromEndpoint(endpoint);
+     var endpoint = trackPiece.getEndpoints()[0];
+     traverser = endpoint.getFirstTraverser();
    }
    
-   var initialResult = traverser.evaluate(i);
-   trainSVG = Train.createTrainSVG(document, document.getElementById("trains"), train, initialResult);
+   var initialPosition = traverser.getPoint(i);
+   var initialDegrees = traverser.getDegrees(i);
+   trainSVG = Train.createTrainSVG(document, document.getElementById("trains"), train, {position:initialPosition,rotation:initialDegrees});
    animationEngine.startAnimation();
   }, false);
  ]]></script>
