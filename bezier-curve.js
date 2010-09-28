@@ -10,6 +10,9 @@ function Bezier(x1,y1,x2,y2,x3,y3,x4,y4) {
 }
 
 Bezier.prototype.getPoint = function(t) {
+  if (t < 0) { t = 0; }
+  if (t > 1) { t = 1; }
+
   var omt = 1 - t; // omt = one minus t
   var x = omt * omt * omt * this.x1 + 3 * omt * omt * t * this.x2 + 3 * omt * t * t * this.x3 + t * t * t * this.x4;
   var y = omt * omt * omt * this.y1 + 3 * omt * omt * t * this.y2 + 3 * omt * t * t * this.y3 + t * t * t * this.y4;
@@ -20,7 +23,10 @@ Bezier.prototype.getPoint = function(t) {
 }
 
 Bezier.prototype.getRadians = function(t) {
-  function interpolate(p1, p2) {
+  if (t < 0) { t = 0; }
+  if (t > 1) { t = 1; }
+
+  function interpolate(p1, p2, t) {
     var x = p1.x * (1 - t) + p2.x * t;
     var y = p1.y * (1 - t) + p2.y * t;
     return { x: x, y: y };
