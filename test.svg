@@ -235,7 +235,6 @@
    document.addEventListener("click", function(event) { console.log(JSON.stringify(Session.trackPiecesToJson(pieces))); }, false);
    loadLayouts();
 
-   // 136.96
    var pc90 = Part.createPartFromBezier("curve90-248", "90 degree curve", "#curve90_248", new Bezier(-248,0,-248,-136.966,-136.966,-248,0,-248));
 
    var s = {x:Part.straight248};
