@@ -9,6 +9,34 @@ function Bezier(x1,y1,x2,y2,x3,y3,x4,y4) {
   this.y4 = y4 || 0;
 }
 
+Bezier.parsePath = function(pathString) {
+  var r = /^\s*M\s*(-?\d+(?:\.\d+)?)(?:\s+|\s*,\s)(-?\d+(?:\.\d+)?)\s*([Cc])\s*(-?\d+(?:\.\d+)?)(?:\s+|\s*,\s)(-?\d+(?:\.\d+)?)(?:\s+|\s*,\s)(-?\d+(?:\.\d+)?)(?:\s+|\s*,\s)(-?\d+(?:\.\d+)?)(?:\s+|\s*,\s)(-?\d+(?:\.\d+)?)(?:\s+|\s*,\s)(-?\d+(?:\.\d+)?)\s*$/;
+  var result = r.exec(pathString);
+  if (result === null) { return null; }
+  var x1 = parseFloat(result[1]);
+  var y1 = parseFloat(result[2]);
+
+  var isRelative = result[3] == 'c';
+
+  var x2 = parseFloat(result[4]);
+  var y2 = parseFloat(result[5]);
+  var x3 = parseFloat(result[6]);
+  var y3 = parseFloat(result[7]);
+  var x4 = parseFloat(result[8]);
+  var y4 = parseFloat(result[9]);
+
+  if (isRelative) {
+    x2 += x1;
+    x3 += x1;
+    x4 += x1;
+    y2 += y1;
+    y3 += y1;
+    y4 += y1;
+  }
+
+  return new Bezier(x1, y1, x2, y2, x3, y3, x4, y4);
+}
+
 Bezier.prototype.getPoint = function(t) {
   if (t < 0) { t = 0; }
   if (t > 1) { t = 1; }
