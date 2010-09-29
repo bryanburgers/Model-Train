@@ -272,7 +272,7 @@
    document.addEventListener("click", function(event) { console.log(JSON.stringify(Session.trackPiecesToJson(pieces))); }, false);
    //loadLayouts();
 
-   ps = new Part("#straight248", [Bezier.parsePath("M 0 124 C 0 80 0 -80 0 -124")]);
+   ps = new Part("#straight248", [Bezier.parsePath("M 0 124 C 0 41.3333333 0 -41.3333333 0 -124")]);
    pc90 = new Part("#curve90_248", [Bezier.parsePath("M -248 0 C -248 -136.966 -136.966 -248 0 -248")]);
 
    var s = {x:ps};
