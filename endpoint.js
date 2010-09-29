@@ -1,9 +1,7 @@
-function Endpoint(position, degrees, isInitial) {
+function Endpoint(position, degrees) {
   this.position = position;
   this.degrees = degrees;
   this.radians = degrees * Math.PI / 180;
-  this.isInitial = isInitial;
-  this.isFinal = !isInitial;
   this.traversers = [];
 }
 

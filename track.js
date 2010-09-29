@@ -88,6 +88,7 @@ function createTrack(initialPosition, initialDegrees, parts) {
   var currentDegrees = initialDegrees;
   var arr = [];
   for (var i = 0; i < parts.length; i++) {
+
     var part = parts[i].x;
     var endpointId = parts[i].e || 0;
     var endpoint = part.getEndpoints()[endpointId];
@@ -95,24 +96,21 @@ function createTrack(initialPosition, initialDegrees, parts) {
     var svgPartPoint = Utility.createSVGPoint(endpoint.position);
     var svgTransform = Utility.createSVGTransform();
 
-    svgTransform.setRotate(currentDegrees - (endpoint.isFinal ? 180 + endpoint.degrees : 0), 0, 0);
+    svgTransform.setRotate(currentDegrees - endpoint.degrees, 0, 0);
     var svgTransformedPoint = svgPartPoint.matrixTransform(svgTransform.matrix);
 
-    var newPosition = {x:currentPosition.x - svgTransformedPoint.x, y:currentPosition.y - svgTransformedPoint.y};
+    var newPiecePosition = {x:currentPosition.x - svgTransformedPoint.x, y:currentPosition.y - svgTransformedPoint.y};
 
-    var pieceRotation = currentDegrees;
+    var pieceRotation = currentDegrees - endpoint.degrees;
 
-    if (endpoint.isFinal) {
-      pieceRotation = currentDegrees + 180 - endpoint.degrees;
-    }
-
-    var trackPiece = new TrackPiece(part, newPosition, pieceRotation);
+    var trackPiece = new TrackPiece(part, newPiecePosition, pieceRotation);
     arr.push(trackPiece);
 
     var t = trackPiece.getEndpoints()[endpointId].getFirstTraverser();
     currentPosition = t.getPoint(t.length);
     currentDegrees = t.getDegrees(t.length);    
   }
+
   return arr;
 }
 

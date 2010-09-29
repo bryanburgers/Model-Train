@@ -278,6 +278,7 @@
    // Magic number for c45: 0.265
 
    var s = {x:ps};
+   var rs = {x:ps,e:1};
    
    var c45 = {x:pc45};
    var rc45 = {x:pc45,e:1};
@@ -290,15 +291,17 @@
      , c45
      , c45
      , c90
-     , rc90
+     , rc45
+     , rc45
      , c90
      , s
      , c90
+     , rs
      , s
+     , c45
+     , c45
      , s
-     , c90
-     , s
-     , s
+     , rs
      ]);
    var parent = document.getElementById("tracks");
 
