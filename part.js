@@ -47,14 +47,14 @@ Part.prototype.getEndpoints = function() {
 
     for (var j = 0; j < a.length; j++) {
       if (!ftfound && endpointsEqual(a[j], ftendpoint)) {
-        atfound = true;
+        ftfound = true;
         a[j].traversers.push(ft);
       }
       if (!btfound && endpointsEqual(a[j], btendpoint)) {
         btfound = true;
         a[j].traversers.push(bt);
       }
-      if (atfound && btfound) { break; }
+      if (ftfound && btfound) { break; }
     }
 
     if (!ftfound) {
