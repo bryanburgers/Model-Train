@@ -1,10 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      xmlns:track="tag:bryan.burgers@gmail.com,2010:train-track">
-<!-- <track:trackdata><![CDATA[{"name":"Oval","pieces":[{"x":0,"y":-124,"rotation":0,"pieceID":"straight248"},{"x":248,"y":-248,"rotation":0,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":-248,"rotation":45,"pieceID":"curve45-248"},{"x":248.0000152587891,"y":-248,"rotation":90,"pieceID":"curve45-248"},{"x":248,"y":-248,"rotation":135,"pieceID":"curve45-248"},{"x":496,"y":-124,"rotation":180,"pieceID":"straight248"},{"x":496,"y":124,"rotation":180,"pieceID":"straight248"},{"x":248,"y":248.00000000000003,"rotation":180,"pieceID":"curve45-248"},{"x":248,"y":248,"rotation":225,"pieceID":"curve45-248"},{"x":247.99999999999994,"y":248,"rotation":270,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":248,"rotation":315,"pieceID":"curve45-248"},{"x":0.000007616087229149769,"y":124,"rotation":360,"pieceID":"straight248"}]}]]></track:trackdata>
- <track:trackdata><![CDATA[{"name":"Other","pieces":[{"x":0,"y":-124,"rotation":0,"pieceID":"straight248"},{"x":248,"y":-248,"rotation":0,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":-248,"rotation":45,"pieceID":"curve45-248"},{"x":248.0000152587891,"y":-248,"rotation":90,"pieceID":"curve45-248"},{"x":248,"y":-248,"rotation":135,"pieceID":"curve45-248"},{"x":744.0000152587891,"y":-248,"rotation":315,"pieceID":"curve45-248"},{"x":744,"y":-248.00000762939453,"rotation":630,"pieceID":"curve45-248"},{"x":744.0000000000006,"y":248,"rotation":810,"pieceID":"curve45-248"},{"x":744,"y":248,"rotation":855,"pieceID":"curve45-248"},{"x":992.0000000000001,"y":372,"rotation":900,"pieceID":"straight248"},{"x":744,"y":496.00000000000017,"rotation":900,"pieceID":"curve45-248"},{"x":744,"y":496,"rotation":945,"pieceID":"curve45-248"},{"x":620,"y":743.9999999999999,"rotation":990,"pieceID":"straight248"},{"x":372,"y":743.9999999999999,"rotation":990,"pieceID":"straight248"},{"x":248.00000000000028,"y":496,"rotation":990,"pieceID":"curve45-248"},{"x":248,"y":496,"rotation":1035,"pieceID":"curve45-248"},{"x":-0.0000031735063204729123,"y":372,"rotation":1080,"pieceID":"straight248"},{"x":-0.0000031735063204729123,"y":124,"rotation":1080,"pieceID":"straight248"}]}]]></track:trackdata>-->
-
-
- <track:trackdata><![CDATA[{"name":"Unnamed","pieces":[{"x":0,"y":0,"rotation":0,"pieceID":"split-right-straight-curve-45-240"},{"x":240,"y":-240,"rotation":0,"pieceID":"curve-45-240"},{"x":240.0145034790039,"y":-240.0232391357422,"rotation":44.993630263560085,"pieceID":"curve-45-240"},{"x":240.04119323566556,"y":-240.0294189453125,"rotation":89.98726052712017,"pieceID":"curve-45-240"},{"x":240.0644073486328,"y":-240.01495361328125,"rotation":134.98089079068026,"pieceID":"curve-45-240"},{"x":480.17728259414434,"y":-0.0950164794921875,"rotation":-0.0254789457596587,"pieceID":"split-left-straight-curve-45-240"},{"x":480.23064635694027,"y":119.90496826171875,"rotation":179.97452105424034,"pieceID":"straight-240"},{"x":240.2840576171875,"y":240.01169249415398,"rotation":179.97452105424034,"pieceID":"curve-45-240"},{"x":240.26959228515625,"y":240.03489685058594,"rotation":-135.03184868219958,"pieceID":"curve-45-240"},{"x":240.24290734529495,"y":240.0410919189453,"rotation":-90.0382184186395,"pieceID":"curve-45-240"},{"x":240.21964263916016,"y":240.026611328125,"rotation":-45.04458815507942,"pieceID":"curve-45-240"},{"x":0.106804758310318,"y":120.21343994140625,"rotation":-0.05095789151933161,"pieceID":"straight-240"},{"x":240.03221893310547,"y":-0.0609893798828125,"rotation":44.98088654151417,"pieceID":"curve-45-240"},{"x":240.05890318751335,"y":-0.06719970703125,"rotation":89.97451680507424,"pieceID":"curve-45-240"}]}]]></track:trackdata>
+ <track:trackdata><![CDATA[{"name":"Simple","pieces":[{"x":0,"y":-120,"rotation":0,"pieceID":"straight-240"},{"x":240,"y":-240,"rotation":0,"pieceID":"curve-45-240"},{"x":240.0145034790039,"y":-240.0232391357422,"rotation":44.993630263560085,"pieceID":"curve-45-240"},{"x":240.04119323566556,"y":-240.0294189453125,"rotation":89.98726052712017,"pieceID":"curve-45-240"},{"x":240.0644073486328,"y":-240.01495361328125,"rotation":134.98089079068026,"pieceID":"curve-45-240"},{"x":480.12392638623714,"y":-120.09500122070312,"rotation":179.97452105424034,"pieceID":"straight-240"},{"x":240.17733764648438,"y":0.01172640174627304,"rotation":179.97452105424034,"pieceID":"curve-45-240"},{"x":240.16287231445312,"y":0.034942626953125,"rotation":-135.03184868219958,"pieceID":"curve-45-240"},{"x":240.13618737459183,"y":0.0411376953125,"rotation":-90.0382184186395,"pieceID":"curve-45-240"},{"x":240.1129150390625,"y":0.026641845703125,"rotation":-45.04458815507942,"pieceID":"curve-45-240"}]}]]></track:trackdata>
+ <track:trackdata><![CDATA[{"name":"Large","pieces":[{"x":0,"y":-120,"rotation":0,"pieceID":"straight-240"},{"x":240,"y":-240,"rotation":0,"pieceID":"curve-45-240"},{"x":240.0145034790039,"y":-240.0232391357422,"rotation":44.993630263560085,"pieceID":"curve-45-240"},{"x":240.04119323566556,"y":-240.0294189453125,"rotation":89.98726052712017,"pieceID":"curve-45-240"},{"x":240.0644073486328,"y":-240.01495361328125,"rotation":134.98089079068026,"pieceID":"curve-45-240"},{"x":720.0767364501953,"y":-240.17501068860292,"rotation":314.9808907906803,"pieceID":"curve-45-240"},{"x":720.0999755859375,"y":-240.16051483154297,"rotation":269.9872605271202,"pieceID":"curve-45-240"},{"x":720.2066290266812,"y":239.8394716233015,"rotation":89.98726052712021,"pieceID":"curve-45-240"},{"x":720.2298126220703,"y":239.85398864746094,"rotation":134.9808907906803,"pieceID":"curve-45-240"},{"x":960.2893316596746,"y":359.7739715576172,"rotation":179.97452105424037,"pieceID":"straight-240"},{"x":720.3426818847656,"y":479.88072630763054,"rotation":179.97452105424037,"pieceID":"curve-45-240"},{"x":720.328125,"y":479.9039764404297,"rotation":-135.03184868219955,"pieceID":"curve-45-240"},{"x":600.4615707397461,"y":719.9901948869228,"rotation":-90.03821841863947,"pieceID":"straight-240"},{"x":360.4616012573242,"y":720.1502290666103,"rotation":-90.03821841863947,"pieceID":"straight-240"},{"x":240.3015621304512,"y":480.2302703857422,"rotation":-90.03821841863947,"pieceID":"curve-45-240"},{"x":240.2782745361328,"y":480.2158203125,"rotation":-45.04458815507939,"pieceID":"curve-45-240"},{"x":0.1654442995786667,"y":360.4026641845703,"rotation":-0.05095789151930319,"pieceID":"straight-240"},{"x":-0.048007577657699585,"y":120.40275573730469,"rotation":-0.05095789151930319,"pieceID":"straight-240"}]}]]></track:trackdata>
+ <track:trackdata><![CDATA[{"name":"Oval","pieces":[{"x":0,"y":0,"rotation":0,"pieceID":"split-right-straight-curve-45-240"},{"x":240,"y":-240,"rotation":0,"pieceID":"curve-45-240"},{"x":240.0145034790039,"y":-240.0232391357422,"rotation":44.993630263560085,"pieceID":"curve-45-240"},{"x":240.04119323566556,"y":-240.0294189453125,"rotation":89.98726052712017,"pieceID":"curve-45-240"},{"x":240.0644073486328,"y":-240.01495361328125,"rotation":134.98089079068026,"pieceID":"curve-45-240"},{"x":480.17728259414434,"y":-0.0950164794921875,"rotation":-0.0254789457596587,"pieceID":"split-left-straight-curve-45-240"},{"x":480.23064635694027,"y":119.90496826171875,"rotation":179.97452105424034,"pieceID":"straight-240"},{"x":240.2840576171875,"y":240.01169249415398,"rotation":179.97452105424034,"pieceID":"curve-45-240"},{"x":240.26959228515625,"y":240.03489685058594,"rotation":-135.03184868219958,"pieceID":"curve-45-240"},{"x":240.24290734529495,"y":240.0410919189453,"rotation":-90.0382184186395,"pieceID":"curve-45-240"},{"x":240.21964263916016,"y":240.026611328125,"rotation":-45.04458815507942,"pieceID":"curve-45-240"},{"x":0.106804758310318,"y":120.21343994140625,"rotation":-0.05095789151933161,"pieceID":"straight-240"},{"x":240.03221893310547,"y":-0.0609893798828125,"rotation":44.98088654151417,"pieceID":"curve-45-240"},{"x":240.05890318751335,"y":-0.06719970703125,"rotation":89.97451680507424,"pieceID":"curve-45-240"}]}]]></track:trackdata>
+ <track:trackdata><![CDATA[{"name":"Mess","pieces":[{"x":0,"y":-120,"rotation":0,"pieceID":"straight-240"},{"x":240,"y":-240,"rotation":0,"pieceID":"curve-45-240"},{"x":240.0145034790039,"y":-240.0232391357422,"rotation":44.993630263560085,"pieceID":"curve-45-240"},{"x":240.04119323566556,"y":-240.0294189453125,"rotation":89.98726052712017,"pieceID":"curve-45-240"},{"x":240.0644073486328,"y":-240.01495361328125,"rotation":134.98089079068026,"pieceID":"curve-45-240"},{"x":720.0767364501953,"y":-240.17501068860292,"rotation":314.9808907906803,"pieceID":"curve-45-240"},{"x":720.0999755859375,"y":-240.16051483154297,"rotation":269.9872605271202,"pieceID":"curve-45-240"},{"x":720.2066290266812,"y":239.8394716233015,"rotation":89.98726052712021,"pieceID":"curve-45-240"},{"x":720.2298126220703,"y":239.85398864746094,"rotation":134.9808907906803,"pieceID":"curve-45-240"},{"x":960.2359619140625,"y":239.77398681640625,"rotation":179.97452105424037,"pieceID":"split-right-straight-curve-45-240"},{"x":960.3960821479559,"y":599.7739410400391,"rotation":179.97452105424037,"pieceID":"straight-240"},{"x":720.4494323730469,"y":719.8806652724743,"rotation":179.97452105424037,"pieceID":"curve-45-240"},{"x":720.4349975585938,"y":719.9039154052734,"rotation":-135.03184868219955,"pieceID":"curve-45-240"},{"x":720.5684204101562,"y":959.9100952148438,"rotation":-90.03821841863947,"pieceID":"split-right-straight-curve-45-240"},{"x":360.5685043334961,"y":960.1502290666103,"rotation":-90.03821841863947,"pieceID":"straight-240"},{"x":240.40846520662308,"y":720.2302703857422,"rotation":-90.03821841863947,"pieceID":"curve-45-240"},{"x":240.3851776123047,"y":720.2158203125,"rotation":-45.04458815507939,"pieceID":"curve-45-240"},{"x":0.2723257690668106,"y":600.4026336669922,"rotation":-0.05095789151930319,"pieceID":"straight-240"},{"x":-0.047879159450531006,"y":240.40280151367188,"rotation":-180.05095789151932,"pieceID":"split-left-straight-curve-45-240"},{"x":-0.15460510551929474,"y":120.40284729003906,"rotation":-0.0509578915193174,"pieceID":"straight-240"},{"x":720.2038116455078,"y":239.94171142578125,"rotation":224.95540759575454,"pieceID":"curve-45-240"},{"x":720.3905639648438,"y":479.9477844238281,"rotation":-90.05096214068539,"pieceID":"split-left-straight-curve-45-240"},{"x":360.3907012939453,"y":480.2679943665862,"rotation":-90.05096214068539,"pieceID":"straight-240"},{"x":240.17725284397602,"y":240.37484741210938,"rotation":-90.05096214068539,"pieceID":"curve-45-240"},{"x":720.5286254882812,"y":720.0032196044922,"rotation":359.97452105424037,"pieceID":"curve-45-240"},{"x":720.5348358154297,"y":720.0299606248736,"rotation":314.98089079068023,"pieceID":"curve-45-240"}]}]]></track:trackdata>
 
  <script type="text/javascript" xlink:href="angle.js" />
  <script type="text/javascript" xlink:href="bezier-curve.js" />
@@ -269,10 +268,6 @@
       pieces[i].drawSVG(parent);
     }
 
-    for (var i = 0; i < pieces.length; i++) {
-      pieces[i].drawSVG(parent);
-    }
-
     var train = Train.createTrain("#train");   
     {
       var trackPiece = pieces[0];
@@ -296,8 +291,10 @@
    var s = {x:ps};
    var rs = {x:ps,e:1};
 
-   var splitr = {x:psplitrsc45};
-   var splitl = {x:psplitlsc45,e:1};
+   var splitr0 = {x:psplitrsc45};
+   var splitr1 = {x:psplitrsc45,e:1};
+   var splitl0 = {x:psplitlsc45};
+   var splitl1 = {x:psplitlsc45,e:1};
    
    var c45 = {x:pc45};
    var rc45 = {x:pc45,e:1};
@@ -306,22 +303,17 @@
    var rc90 = {x:pc90,e:1};
 
    pieces = createTrack({x:0,y:0}, 0,
-     [ splitr
-     , c45
-     , c45
-     , c45
-     , c45
-     , splitl
-     , s
+     [ s
      , c45
      , c45
      , c45
      , c45
      , s
+     , c45
+     , c45
+     , c45
+     , c45
      ]);
-
-   var e = pieces[0].getEndpoints()[2];
-   pieces = pieces.concat(createTrack(e.position, e.degrees + 180, [ c45, c45 ]));
 
    var parent = document.getElementById("tracks");
 
