@@ -272,20 +272,23 @@
    document.addEventListener("click", function(event) { console.log(JSON.stringify(Session.trackPiecesToJson(pieces))); }, false);
    //loadLayouts();
 
-   ps = new Part("straight248", [Bezier.parsePath("M 0 124 C 0 41.3333333 0 -41.3333333 0 -124")]);
-   pc90 = new Part("curve90_248", [Bezier.parsePath("M -248 0 C -248 -136.966 -136.966 -248 0 -248")]);
+   ps = new Part("straight240", [Bezier.parsePath("M 0 120 C 0 40 0 -40 0 -120")]);
+   pc90 = new Part("curve90_240", [Bezier.parsePath("M -240 0 C -240 -132.528 -132.528 -240 0 -240")]);
+   pc45 = new Part("curve45_240", [Bezier.parsePath("M -240 0 C -240 -63.6 -214.68 -124.73 -169.71 -169.71")]);
    // Magic number for c45: 0.265
 
    var s = {x:ps};
-   //var c45 = {x:Part.curve45_248};
-   //var rc45 = {x:Part.curve45_248,e:1};
+   
+   var c45 = {x:pc45};
+   var rc45 = {x:pc45,e:1};
 
    var c90 = {x:pc90};
    var rc90 = {x:pc90,e:1};
 
    pieces = createTrack({x:0,y:0}, 0,
      [ s
-     , c90
+     , c45
+     , c45
      , c90
      , rc90
      , c90
@@ -317,21 +320,21 @@
   }, false);
  ]]></script>
  <defs>
-  <g id="straight248">
-   <line x1="0" y1="124" x2="0" y2="-124" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" />
-   <line x1="-4.5" y1="124" x2="-4.5" y2="-124" stroke-width="1" stroke="black" />
-   <line  x1="4.5" y1="124"  x2="4.5" y2="-124" stroke-width="1" stroke="black" />
+  <g id="straight240">
+   <line x1="0" y1="120" x2="0" y2="-120" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" />
+   <line x1="-4.5" y1="120" x2="-4.5" y2="-120" stroke-width="1" stroke="black" />
+   <line  x1="4.5" y1="120"  x2="4.5" y2="-120" stroke-width="1" stroke="black" />
   </g>
-  <g id="curve45_248">
-   <path d="M -248,0 A 248,248,0,0,1,-173.24,-173.24" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" fill="none" />
-   <path d="M -252.5,0 A 252.5,252.5,0,0,1,-178.54,-178.54" stroke-width="1" stroke="black" fill="none" />
-   <path d="M -243.5,0 A 243.5,243.5,0,0,1,-172.18,-172.18" stroke-width="1" stroke="black" fill="none" />
+  <g id="curve45_240">
+   <path d="M -240 0 C -240 -63.6 -214.68 -124.73 -169.71 -169.71" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" fill="none" />
+   <path d="M -244.5,0 A 244.5,244.5,0,0,1,-172.89,-172.89" stroke-width="1" stroke="black" fill="none" />
+   <path d="M -235.5,0 A 235.5,235.5,0,0,1,-166.52,-166.52" stroke-width="1" stroke="black" fill="none" />
   </g>
 
-  <g id="curve90_248" track:is-piece-definition="true">
-   <path track:is-control-path="true" d="M -248 0 C -248 -136.966 -136.966 -248 0 -248" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" fill="none" />
-   <path d="M -252.5,0 A 252.5,252.5,0,0,1,0,-252.5" stroke-width="1" stroke="black" fill="none" />
-   <path d="M -243.5,0 A 243.5,243.5,0,0,1,0,-243.5" stroke-width="1" stroke="black" fill="none" />
+  <g id="curve90_240" track:is-piece-definition="true">
+   <path track:is-control-path="true" d="M -240 0 C -240 -132.528 -132.528 -240 0 -240" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" fill="none" />
+   <path d="M -244.5,0 A 244.5,244.5,0,0,1,0,-244.5" stroke-width="1" stroke="black" fill="none" />
+   <path d="M -235.5,0 A 235.5,235.5,0,0,1,0,-235.5" stroke-width="1" stroke="black" fill="none" />
   </g>
 
   <linearGradient
