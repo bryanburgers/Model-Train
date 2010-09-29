@@ -3,12 +3,13 @@
 var SVG_NS = "http://www.w3.org/2000/svg";
 var XLINK_NS = "http://www.w3.org/1999/xlink";
 
-function TransformedTraverser(traverser, position, degrees) {
+function TransformedTraverser(traverser, position, degrees, trackPiece) {
   this.length = traverser.length;
   this.traverser = traverser;
   this.position = position;
   this.degrees = degrees;
   this.radians = degrees * Math.PI / 180;
+  this.trackPiece = trackPiece;
 }
 
 TransformedTraverser.prototype.getPoint = function(t) {
@@ -43,10 +44,6 @@ TransformedTraverser.prototype.getRadians = function(t) {
   return Angle.constrainRadians(this.traverser.getRadians(t) + this.radians);
 }
 
-TransformedTraverser.prototype.getInverseTraverser = function(t) {
-  return new TransformedTraverser(self.traverser.getInverseTraverser(), self.position, self.degrees);
-}
-
 function TrackPiece(part, position, degrees) {
   this.part = part;
   this.position = position;
@@ -58,7 +55,7 @@ TrackPiece.prototype.getForwardTraversers = function() {
   var a = [];
   var partTraversers = this.part.getForwardTraversers();
   for (var i = 0; i < partTraversers.length; i++) {
-    a[i] = new TransformedTraverser(partTraversers[i], this.position, this.degrees);
+    a[i] = new TransformedTraverser(partTraversers[i], this.position, this.degrees, this);
   }
   return a;
 }
@@ -67,7 +64,7 @@ TrackPiece.prototype.getBackwardTraversers = function() {
   var a = [];
   var partTraversers = this.part.getBackwardTraversers();
   for (var i = 0; i < partTraversers.length; i++) {
-    a[i] = new TransformedTraverser(partTraversers[i], this.position, this.degrees);
+    a[i] = new TransformedTraverser(partTraversers[i], this.position, this.degrees, this);
   }
   return a;
 }

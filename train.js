@@ -51,20 +51,24 @@ var Train = (function() {
     return d < threshold;
   }
 
-  function findClosestTrackPiece(trackPieces, result, currentTrackPiece) {
-    var position = result.position;
+  function findClosestTrackPiece(trackPieces, position, degrees, currentTrackPiece) {
     var distance = 1000000.0;
     var closestTrackPiece = undefined;
     var closestEndpoint = undefined;
     for (var i = 0; i < trackPieces.length; i++) {
       var piece = trackPieces[i];
       if (piece == currentTrackPiece) { continue; }
-      for (var j = 0; j < piece.endpoints.length; j++) {
-        var endpoint = piece.endpoints[j];
+      var endpoints = piece.getEndpoints();
+      for (var j = 0; j < endpoints.length; j++) {
+        var endpoint = endpoints[j];
         var deltaX = endpoint.position.x - position.x;
         var deltaY = endpoint.position.y - position.y;
+        var endpointDegrees = endpoint.degrees;
+        if (endpoint.isFinal) {
+          endpointDegrees = Angle.constrainDegrees(endpointDegrees + 180);
+        }
         var d = Math.sqrt( deltaX * deltaX + deltaY * deltaY );               
-        if (d < distance && anglesWithin(result.rotation, endpoint.inRotation, 2)) {
+        if (d < distance && anglesWithin(degrees, endpointDegrees, 2)) {
           distance = d;
           closestTrackPiece = piece;
           closestEndpoint = endpoint;

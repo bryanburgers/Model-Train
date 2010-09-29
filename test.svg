@@ -13,6 +13,32 @@
  <script type="text/javascript" xlink:href="traverser.js" />
  <script type="text/javascript" xlink:href="session.js" />
  <script type="text/javascript"><![CDATA[
+  function drawEndpoint(endpoint) {
+    var tracks = document.getElementById("tracks");
+    var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    g.setAttribute("transform", "translate(" + endpoint.position.x.toString() + " " + endpoint.position.y.toString() + ") rotate(" + endpoint.degrees + ")");
+    var e1 = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+    e1.setAttribute("cx", "0");
+    e1.setAttribute("cy", "0");
+    e1.setAttribute("rx", "50");
+    e1.setAttribute("ry", "50");
+    e1.setAttribute("stroke", "red");
+    e1.setAttribute("stroke-width", "5");
+    e1.setAttribute("fill", "rgba(255,0,0,0.5)");
+
+    var p1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    p1.setAttribute("d", "M 0 40 L 0 -40 M -20 -20 L 0 -40 L 20 -20");
+    p1.setAttribute("stroke", "red");
+    p1.setAttribute("stroke-width", "5");
+    p1.setAttribute("fill", "none");
+
+    g.appendChild(e1);
+    g.appendChild(p1);
+
+    tracks.appendChild(g);
+  }
+
+
   animationEngine = Animation.createAnimationEngine();
   animationEngine.addEventListener("animateframe", animateFrame, false);
   animationEngine.addEventListener("fpschange", function(event) {
@@ -38,20 +64,28 @@
   };
 
   function animateFrame(event) {
+    if (!traverser) { return; }
     i += event.secondsEllapsed * speed;
     var oldLength = traverser.length;
     if (i > traverser.length) {
       var result = traverser.getPoint(traverser.length);
       var rotation = traverser.getDegrees(traverser.length);
-      z = Train.findClosestTrackPiece(pieces, {position:result,rotation:rotation}, traverser.trackPiece);
-      traverser = z.trackPiece.traverserFromEndpoint(z.endpoint);
+      z = Train.findClosestTrackPiece(pieces, result, rotation, traverser.trackPiece);
+      if (z) {
+        traverser = z.endpoint.getRandomTraverser();
+      }
+      else {
+        traverser = null;
+      }
 
       while (i > oldLength) { i -= oldLength; }
     }
 
-    var result = traverser.getPoint(i);
-    var rotation = traverser.getDegrees(i);
-    Train.updateTrain(trainSVG, {position:result,rotation:rotation});
+    if (traverser) {
+      var result = traverser.getPoint(i);
+      var rotation = traverser.getDegrees(i);
+      Train.updateTrain(trainSVG, {position:result,rotation:rotation});
+    }
   }
   
   var control = {

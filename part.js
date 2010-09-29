@@ -36,10 +36,11 @@ Part.prototype.getEndpoints = function() {
   var backwardTraversers = this.getBackwardTraversers();
 
   var ft = forwardTraversers[0];
+  var bt = backwardTraversers[0];
   a[0] = new Endpoint(ft.getPoint(0), ft.getDegrees(0), true);
   a[0].traversers[0] = ft;
   a[1] = new Endpoint(ft.getPoint(ft.length), ft.getDegrees(ft.length), false);
-  a[1].traversers[0] = backwardTraversers[0];
+  a[1].traversers[0] = bt;
   return a;
 }
 
@@ -75,8 +76,4 @@ BezierTraverser.prototype.getDegrees = function(t) {
     offset = -offset;
   }
   return Angle.constrainDegrees(this.bezier.getDegrees(tprime) + offset);
-}
-
-BezierTraverser.prototype.getInverseTraverser = function() {
-  return new BezierTraverser(this.bezier, !this.reverse);
 }
