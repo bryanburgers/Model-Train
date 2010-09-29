@@ -276,13 +276,16 @@
    pc90 = new Part("curve90_240", [Bezier.parsePath("M -240 0 C -240 -132.528 -132.528 -240 0 -240")]);
    pc45 = new Part("curve45_240", [Bezier.parsePath("M -240 0 C -240 -63.6 -214.68 -124.73 -169.71 -169.71")]);
 
-   psc45 = new Part("split-s-c45-240", [Bezier.parsePath("M 0 0 C 0 -80 0 -160 0 -240"), Bezier.parsePath("M 0 0 C 0 -63.6 25.32 -124.73 70.27 -169.71")]);
+   psplitrsc45 = new Part("split-right-s-c45-240", [Bezier.parsePath("M 0 0 C 0 -80 0 -160 0 -240"), Bezier.parsePath("M 0 0 C 0 -63.6 25.32 -124.73 70.27 -169.71")]);
+   psplitlsc45 = new Part("split-left-s-c45-240", [Bezier.parsePath("M 0 0 C 0 -80 0 -160 0 -240"), Bezier.parsePath("M 0 0 C 0 -63.6 -25.32 -124.73 -70.27 -169.71")]);
+
    // Magic number for c45: 0.265
 
    var s = {x:ps};
    var rs = {x:ps,e:1};
 
-   var sc45 = {x:psc45};
+   var splitr = {x:psplitrsc45};
+   var splitl = {x:psplitlsc45,e:1};
    
    var c45 = {x:pc45};
    var rc45 = {x:pc45,e:1};
@@ -291,22 +294,23 @@
    var rc90 = {x:pc90,e:1};
 
    pieces = createTrack({x:0,y:0}, 0,
-     [ s
+     [ splitr
      , c45
      , c45
-     , c90
-     , rc45
-     , rc45
-     , c90
-     , s
-     , c90
-     , rs
+     , c45
+     , c45
+     , splitl
      , s
      , c45
      , c45
+     , c45
+     , c45
      , s
-     , sc45
      ]);
+
+   var e = pieces[0].getEndpoints()[2];
+   pieces = pieces.concat(createTrack(e.position, e.degrees + 180, [ c45, c45 ]));
+
    var parent = document.getElementById("tracks");
 
    for (var i = 0; i < pieces.length; i++) {
@@ -344,7 +348,7 @@
    <path d="M -235.5,0 A 235.5,235.5,0,0,1,0,-235.5" stroke-width="1" stroke="black" fill="none" />
   </g>
 
-  <g id="split-s-c45-240">
+  <g id="split-right-s-c45-240">
    <line x1="0" y1="0" x2="0" y2="-240" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" />
    <line x1="-4.5" y1="0" x2="-4.5" y2="-240" stroke-width="1" stroke="black" />
    <line  x1="4.5" y1="0"  x2="4.5" y2="-240" stroke-width="1" stroke="black" />
@@ -352,6 +356,16 @@
    <path d="M 0 0 C 0 -63.6 25.32 -124.73 70.27 -169.71" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" fill="none" />
    <path d="M -4.5,0 A 244.5,244.5,0,0,1,67.11,-172.89" stroke-width="1" stroke="black" fill="none" />
    <path d="M 4.5,0 A 235.5,235.5,0,0,1,73.48,-166.52" stroke-width="1" stroke="black" fill="none" />
+  </g>
+
+  <g id="split-left-s-c45-240">
+   <line x1="0" y1="0" x2="0" y2="-240" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" />
+   <line x1="-4.5" y1="0" x2="-4.5" y2="-240" stroke-width="1" stroke="black" />
+   <line  x1="4.5" y1="0"  x2="4.5" y2="-240" stroke-width="1" stroke="black" />
+
+   <path d="M 0 0 C 0 -63.6 -25.32 -124.73 -70.27 -169.71" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" fill="none" />
+   <path d="M 4.5,0 A 244.5,244.5,0,0,0,-67.11,-172.89" stroke-width="1" stroke="black" fill="none" />
+   <path d="M -4.5,0 A 235.5,235.5,0,0,0,-73.48,-166.52" stroke-width="1" stroke="black" fill="none" />
   </g>
 
   <linearGradient
