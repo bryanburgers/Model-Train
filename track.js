@@ -77,7 +77,7 @@ TrackPiece.prototype.drawSVG = function(parent) {
   var use = document.createElementNS(SVG_NS, "use");
   use.setAttribute("x", this.position.x);
   use.setAttribute("y", this.position.y);
-  use.setAttributeNS(XLINK_NS, "href", this.part.svgIdentifier);
+  use.setAttributeNS(XLINK_NS, "href", "#" + this.part.svgIdentifier);
   use.setAttribute("transform", "rotate(" + this.degrees.toString() + ", " + this.position.x.toString() + ", " + this.position.y.toString() + ")");
 
   parent.appendChild(use);
