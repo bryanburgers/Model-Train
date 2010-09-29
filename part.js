@@ -31,16 +31,48 @@ function endpointsEqual(endpoint1, endpoint2) {
 
 Part.prototype.getEndpoints = function() {
   var a = [];
-  var aindex = 0;
+
   var forwardTraversers = this.getForwardTraversers();
   var backwardTraversers = this.getBackwardTraversers();
 
-  var ft = forwardTraversers[0];
-  var bt = backwardTraversers[0];
-  a[0] = new Endpoint(ft.getPoint(0), ft.getDegrees(0));
-  a[0].traversers[0] = ft;
-  a[1] = new Endpoint(bt.getPoint(0), bt.getDegrees(0));
-  a[1].traversers[0] = bt;
+  for (var i = 0; i < forwardTraversers.length; i++) {
+    var ft = forwardTraversers[i];
+    var bt = backwardTraversers[i];
+
+    var ftendpoint = new Endpoint(ft.getPoint(0), ft.getDegrees(0));
+    var btendpoint = new Endpoint(bt.getPoint(0), bt.getDegrees(0));
+
+    var ftfound = false;
+    var btfound = false;
+
+    for (var j = 0; j < a.length; j++) {
+      if (!ftfound && endpointsEqual(a[j], ftendpoint)) {
+        atfound = true;
+        a[j].traversers.push(ft);
+      }
+      if (!btfound && endpointsEqual(a[j], btendpoint)) {
+        btfound = true;
+        a[j].traversers.push(bt);
+      }
+      if (atfound && btfound) { break; }
+    }
+
+    if (!ftfound) {
+      a.push(ftendpoint);
+      ftendpoint.traversers[0] = ft;
+    }
+    if (!btfound) {
+      a.push(btendpoint);
+      btendpoint.traversers[0] = bt;
+    }
+  }
+
+//  var ft = forwardTraversers[0];
+//  var bt = backwardTraversers[0];
+//  a[0] = new Endpoint(ft.getPoint(0), ft.getDegrees(0));
+//  a[0].traversers[0] = ft;
+//  a[1] = new Endpoint(bt.getPoint(0), bt.getDegrees(0));
+//  a[1].traversers[0] = bt;
   return a;
 }
 
