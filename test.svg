@@ -198,7 +198,6 @@
         this.originalMouseX = event.layerX;
         this.originalMouseY = event.layerY;
       }
-      console.log(event);
       boxSettings.translateX = this.originalTranslateX + (event.layerX - this.originalMouseX);
       boxSettings.translateY = this.originalTranslateY + (event.layerY - this.originalMouseY);
       boxSettings.update();
