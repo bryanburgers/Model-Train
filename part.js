@@ -1,7 +1,8 @@
 // Depends on: angle.js, endpoint.js
 
-function Part(svgIdentifier, beziers) {
-  this.svgIdentifier = svgIdentifier;
+function Part(identifier, beziers) {
+  this.identifier = identifier;
+  this.svgIdentifier = identifier;
   this.beziers = beziers || [];
 }
 
