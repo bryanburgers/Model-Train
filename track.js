@@ -99,7 +99,6 @@ function createTrack(initialPosition, initialDegrees, parts) {
     var svgTransformedPoint = svgPartPoint.matrixTransform(svgTransform.matrix);
 
     var newPosition = {x:currentPosition.x - svgTransformedPoint.x, y:currentPosition.y - svgTransformedPoint.y};
-    console.log(newPosition);
 
     var pieceRotation = currentDegrees;
 
