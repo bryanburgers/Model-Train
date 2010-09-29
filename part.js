@@ -110,3 +110,15 @@ BezierTraverser.prototype.getDegrees = function(t) {
   }
   return Angle.constrainDegrees(this.bezier.getDegrees(tprime) + offset);
 }
+
+function PartsCollection() {
+  this.parts = {};
+}
+
+PartsCollection.prototype.registerPart = function(part) {
+  this.parts[part.id] = part;
+}
+
+PartsCollection.prototype.getPartById = function(id) {
+  return this.parts[id];
+}

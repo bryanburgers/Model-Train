@@ -114,13 +114,13 @@ function createTrack(initialPosition, initialDegrees, parts) {
   return arr;
 }
 
-function loadTrack(trackJson) {
+function loadTrack(trackJson, partsCollection) {
   var pieces = trackJson.pieces;
   var arr = [];
   for (var i = 0; i < pieces.length; i++) {
     var pieceDef = pieces[i];
-    var part = Part.fromId(pieceDef.pieceID);
-    var trackPiece = createTrackPiece(part, Utility.createPosition(pieceDef.x, pieceDef.y), pieceDef.rotation);
+    var part = partsCollection.getPartById(pieceDef.pieceID);
+    var trackPiece = new TrackPiece(part, pieceDef, pieceDef.rotation);
     arr.push(trackPiece);
   }
   return arr;

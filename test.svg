@@ -1,7 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      xmlns:track="tag:bryan.burgers@gmail.com,2010:train-track">
- <track:trackdata><![CDATA[{"name":"Oval","pieces":[{"x":0,"y":-124,"rotation":0,"pieceID":"straight248"},{"x":248,"y":-248,"rotation":0,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":-248,"rotation":45,"pieceID":"curve45-248"},{"x":248.0000152587891,"y":-248,"rotation":90,"pieceID":"curve45-248"},{"x":248,"y":-248,"rotation":135,"pieceID":"curve45-248"},{"x":496,"y":-124,"rotation":180,"pieceID":"straight248"},{"x":496,"y":124,"rotation":180,"pieceID":"straight248"},{"x":248,"y":248.00000000000003,"rotation":180,"pieceID":"curve45-248"},{"x":248,"y":248,"rotation":225,"pieceID":"curve45-248"},{"x":247.99999999999994,"y":248,"rotation":270,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":248,"rotation":315,"pieceID":"curve45-248"},{"x":0.000007616087229149769,"y":124,"rotation":360,"pieceID":"straight248"}]}]]></track:trackdata>
- <track:trackdata><![CDATA[{"name":"Other","pieces":[{"x":0,"y":-124,"rotation":0,"pieceID":"straight248"},{"x":248,"y":-248,"rotation":0,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":-248,"rotation":45,"pieceID":"curve45-248"},{"x":248.0000152587891,"y":-248,"rotation":90,"pieceID":"curve45-248"},{"x":248,"y":-248,"rotation":135,"pieceID":"curve45-248"},{"x":744.0000152587891,"y":-248,"rotation":315,"pieceID":"curve45-248"},{"x":744,"y":-248.00000762939453,"rotation":630,"pieceID":"curve45-248"},{"x":744.0000000000006,"y":248,"rotation":810,"pieceID":"curve45-248"},{"x":744,"y":248,"rotation":855,"pieceID":"curve45-248"},{"x":992.0000000000001,"y":372,"rotation":900,"pieceID":"straight248"},{"x":744,"y":496.00000000000017,"rotation":900,"pieceID":"curve45-248"},{"x":744,"y":496,"rotation":945,"pieceID":"curve45-248"},{"x":620,"y":743.9999999999999,"rotation":990,"pieceID":"straight248"},{"x":372,"y":743.9999999999999,"rotation":990,"pieceID":"straight248"},{"x":248.00000000000028,"y":496,"rotation":990,"pieceID":"curve45-248"},{"x":248,"y":496,"rotation":1035,"pieceID":"curve45-248"},{"x":-0.0000031735063204729123,"y":372,"rotation":1080,"pieceID":"straight248"},{"x":-0.0000031735063204729123,"y":124,"rotation":1080,"pieceID":"straight248"}]}]]></track:trackdata>
+<!-- <track:trackdata><![CDATA[{"name":"Oval","pieces":[{"x":0,"y":-124,"rotation":0,"pieceID":"straight248"},{"x":248,"y":-248,"rotation":0,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":-248,"rotation":45,"pieceID":"curve45-248"},{"x":248.0000152587891,"y":-248,"rotation":90,"pieceID":"curve45-248"},{"x":248,"y":-248,"rotation":135,"pieceID":"curve45-248"},{"x":496,"y":-124,"rotation":180,"pieceID":"straight248"},{"x":496,"y":124,"rotation":180,"pieceID":"straight248"},{"x":248,"y":248.00000000000003,"rotation":180,"pieceID":"curve45-248"},{"x":248,"y":248,"rotation":225,"pieceID":"curve45-248"},{"x":247.99999999999994,"y":248,"rotation":270,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":248,"rotation":315,"pieceID":"curve45-248"},{"x":0.000007616087229149769,"y":124,"rotation":360,"pieceID":"straight248"}]}]]></track:trackdata>
+ <track:trackdata><![CDATA[{"name":"Other","pieces":[{"x":0,"y":-124,"rotation":0,"pieceID":"straight248"},{"x":248,"y":-248,"rotation":0,"pieceID":"curve45-248"},{"x":248.00000762939453,"y":-248,"rotation":45,"pieceID":"curve45-248"},{"x":248.0000152587891,"y":-248,"rotation":90,"pieceID":"curve45-248"},{"x":248,"y":-248,"rotation":135,"pieceID":"curve45-248"},{"x":744.0000152587891,"y":-248,"rotation":315,"pieceID":"curve45-248"},{"x":744,"y":-248.00000762939453,"rotation":630,"pieceID":"curve45-248"},{"x":744.0000000000006,"y":248,"rotation":810,"pieceID":"curve45-248"},{"x":744,"y":248,"rotation":855,"pieceID":"curve45-248"},{"x":992.0000000000001,"y":372,"rotation":900,"pieceID":"straight248"},{"x":744,"y":496.00000000000017,"rotation":900,"pieceID":"curve45-248"},{"x":744,"y":496,"rotation":945,"pieceID":"curve45-248"},{"x":620,"y":743.9999999999999,"rotation":990,"pieceID":"straight248"},{"x":372,"y":743.9999999999999,"rotation":990,"pieceID":"straight248"},{"x":248.00000000000028,"y":496,"rotation":990,"pieceID":"curve45-248"},{"x":248,"y":496,"rotation":1035,"pieceID":"curve45-248"},{"x":-0.0000031735063204729123,"y":372,"rotation":1080,"pieceID":"straight248"},{"x":-0.0000031735063204729123,"y":124,"rotation":1080,"pieceID":"straight248"}]}]]></track:trackdata>-->
+
+
+ <track:trackdata><![CDATA[{"name":"Unnamed","pieces":[{"x":0,"y":0,"rotation":0,"pieceID":"split-right-straight-curve-45-240"},{"x":240,"y":-240,"rotation":0,"pieceID":"curve-45-240"},{"x":240.0145034790039,"y":-240.0232391357422,"rotation":44.993630263560085,"pieceID":"curve-45-240"},{"x":240.04119323566556,"y":-240.0294189453125,"rotation":89.98726052712017,"pieceID":"curve-45-240"},{"x":240.0644073486328,"y":-240.01495361328125,"rotation":134.98089079068026,"pieceID":"curve-45-240"},{"x":480.17728259414434,"y":-0.0950164794921875,"rotation":-0.0254789457596587,"pieceID":"split-left-straight-curve-45-240"},{"x":480.23064635694027,"y":119.90496826171875,"rotation":179.97452105424034,"pieceID":"straight-240"},{"x":240.2840576171875,"y":240.01169249415398,"rotation":179.97452105424034,"pieceID":"curve-45-240"},{"x":240.26959228515625,"y":240.03489685058594,"rotation":-135.03184868219958,"pieceID":"curve-45-240"},{"x":240.24290734529495,"y":240.0410919189453,"rotation":-90.0382184186395,"pieceID":"curve-45-240"},{"x":240.21964263916016,"y":240.026611328125,"rotation":-45.04458815507942,"pieceID":"curve-45-240"},{"x":0.106804758310318,"y":120.21343994140625,"rotation":-0.05095789151933161,"pieceID":"straight-240"},{"x":240.03221893310547,"y":-0.0609893798828125,"rotation":44.98088654151417,"pieceID":"curve-45-240"},{"x":240.05890318751335,"y":-0.06719970703125,"rotation":89.97451680507424,"pieceID":"curve-45-240"}]}]]></track:trackdata>
+
  <script type="text/javascript" xlink:href="angle.js" />
  <script type="text/javascript" xlink:href="bezier-curve.js" />
  <script type="text/javascript" xlink:href="animation.js" />
@@ -38,6 +42,19 @@
     tracks.appendChild(g);
   }
 
+  var partsCollection = new PartsCollection();
+  var ps = new Part("straight-240", [Bezier.parsePath("M 0 120 C 0 40 0 -40 0 -120")]);
+  var pc90 = new Part("curve-90-240", [Bezier.parsePath("M -240 0 C -240 -132.528 -132.528 -240 0 -240")]);
+  var pc45 = new Part("curve-45-240", [Bezier.parsePath("M -240 0 C -240 -63.6 -214.68 -124.73 -169.71 -169.71")]);
+
+  var psplitrsc45 = new Part("split-right-straight-curve-45-240", [Bezier.parsePath("M 0 0 C 0 -80 0 -160 0 -240"), Bezier.parsePath("M 0 0 C 0 -63.6 25.32 -124.73 70.27 -169.71")]);
+  var psplitlsc45 = new Part("split-left-straight-curve-45-240", [Bezier.parsePath("M 0 0 C 0 -80 0 -160 0 -240"), Bezier.parsePath("M 0 0 C 0 -63.6 -25.32 -124.73 -70.27 -169.71")]);
+
+  partsCollection.registerPart(ps);
+  partsCollection.registerPart(pc90);
+  partsCollection.registerPart(pc45);
+  partsCollection.registerPart(psplitrsc45);
+  partsCollection.registerPart(psplitlsc45);
 
   animationEngine = Animation.createAnimationEngine();
   animationEngine.addEventListener("animateframe", animateFrame, false);
@@ -209,7 +226,7 @@
     var yoffset = 0;
     var yheight = 21;
     var ymargin = 2;
-    var elements = document.getElementsByTagNameNS("tag:bryan.burgers@gmail.com,2010-08-25:train-track", "trackdata");
+    var elements = document.getElementsByTagNameNS("tag:bryan.burgers@gmail.com,2010:train-track", "trackdata");
     var layoutsSVG = document.getElementById("layouts");
     for (var i = 0; i < elements.length; i++) {
       var element = elements[i];
@@ -246,21 +263,26 @@
       trainsParent.removeChild(trainsParent.childNodes[0]);
     }
 
-    pieces = Track.loadTrack(layout);
+    pieces = loadTrack(layout, partsCollection);
 
     for (var i = 0; i < pieces.length; i++) {
-      Track.drawTrackPiece(document, parent, pieces[i]);
+      pieces[i].drawSVG(parent);
+    }
+
+    for (var i = 0; i < pieces.length; i++) {
+      pieces[i].drawSVG(parent);
     }
 
     var train = Train.createTrain("#train");   
     {
       var trackPiece = pieces[0];
-      var endpoint = trackPiece.endpoints[0];
-      traverser = trackPiece.traverserFromEndpoint(endpoint);
+      var endpoint = trackPiece.getEndpoints()[0];
+      traverser = endpoint.getFirstTraverser();
     }
    
-    var initialResult = traverser.evaluate(i);
-    trainSVG = Train.createTrainSVG(document, document.getElementById("trains"), train, initialResult);
+    var initialPosition = traverser.getPoint(i);
+    var initialDegrees = traverser.getDegrees(i);
+    trainSVG = Train.createTrainSVG(document, document.getElementById("trains"), train, {position:initialPosition,rotation:initialDegrees});
   }
 
   addEventListener("load", function(event) {
@@ -269,16 +291,7 @@
    zoomControl.addEventListeners(document.getElementById("zoomControl"));
    panControl.addEventListeners(document);
    document.addEventListener("click", function(event) { console.log(JSON.stringify(Session.trackPiecesToJson(pieces))); }, false);
-   //loadLayouts();
-
-   ps = new Part("straight240", [Bezier.parsePath("M 0 120 C 0 40 0 -40 0 -120")]);
-   pc90 = new Part("curve90_240", [Bezier.parsePath("M -240 0 C -240 -132.528 -132.528 -240 0 -240")]);
-   pc45 = new Part("curve45_240", [Bezier.parsePath("M -240 0 C -240 -63.6 -214.68 -124.73 -169.71 -169.71")]);
-
-   psplitrsc45 = new Part("split-right-s-c45-240", [Bezier.parsePath("M 0 0 C 0 -80 0 -160 0 -240"), Bezier.parsePath("M 0 0 C 0 -63.6 25.32 -124.73 70.27 -169.71")]);
-   psplitlsc45 = new Part("split-left-s-c45-240", [Bezier.parsePath("M 0 0 C 0 -80 0 -160 0 -240"), Bezier.parsePath("M 0 0 C 0 -63.6 -25.32 -124.73 -70.27 -169.71")]);
-
-   // Magic number for c45: 0.265
+   loadLayouts();
 
    var s = {x:ps};
    var rs = {x:ps,e:1};
@@ -330,24 +343,24 @@
   }, false);
  ]]></script>
  <defs>
-  <g id="straight240">
+  <g id="straight-240">
    <line x1="0" y1="120" x2="0" y2="-120" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" />
    <line x1="-4.5" y1="120" x2="-4.5" y2="-120" stroke-width="1" stroke="black" />
    <line  x1="4.5" y1="120"  x2="4.5" y2="-120" stroke-width="1" stroke="black" />
   </g>
-  <g id="curve45_240">
+  <g id="curve-45-240">
    <path d="M -240 0 C -240 -63.6 -214.68 -124.73 -169.71 -169.71" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" fill="none" />
    <path d="M -244.5,0 A 244.5,244.5,0,0,1,-172.89,-172.89" stroke-width="1" stroke="black" fill="none" />
    <path d="M -235.5,0 A 235.5,235.5,0,0,1,-166.52,-166.52" stroke-width="1" stroke="black" fill="none" />
   </g>
 
-  <g id="curve90_240" track:is-piece-definition="true">
+  <g id="curve-90-240" track:is-piece-definition="true">
    <path track:is-control-path="true" d="M -240 0 C -240 -132.528 -132.528 -240 0 -240" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" fill="none" />
    <path d="M -244.5,0 A 244.5,244.5,0,0,1,0,-244.5" stroke-width="1" stroke="black" fill="none" />
    <path d="M -235.5,0 A 235.5,235.5,0,0,1,0,-235.5" stroke-width="1" stroke="black" fill="none" />
   </g>
 
-  <g id="split-right-s-c45-240">
+  <g id="split-right-straight-curve-45-240">
    <line x1="0" y1="0" x2="0" y2="-240" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" />
    <line x1="-4.5" y1="0" x2="-4.5" y2="-240" stroke-width="1" stroke="black" />
    <line  x1="4.5" y1="0"  x2="4.5" y2="-240" stroke-width="1" stroke="black" />
@@ -357,7 +370,7 @@
    <path d="M 4.5,0 A 235.5,235.5,0,0,1,73.48,-166.52" stroke-width="1" stroke="black" fill="none" />
   </g>
 
-  <g id="split-left-s-c45-240">
+  <g id="split-left-straight-curve-45-240">
    <line x1="0" y1="0" x2="0" y2="-240" stroke-width="18" stroke="#b51" stroke-dasharray="2,8" stroke-dashoffset="4" />
    <line x1="-4.5" y1="0" x2="-4.5" y2="-240" stroke-width="1" stroke="black" />
    <line  x1="4.5" y1="0"  x2="4.5" y2="-240" stroke-width="1" stroke="black" />
