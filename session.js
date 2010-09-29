@@ -7,12 +7,13 @@ var Session = (function() {
       ps.push({
         x: piece.position.x,
         y: piece.position.y,
-        rotation: piece.rotation,
+        rotation: piece.degrees,
         pieceID: piece.part.id
       });
     }
 
     return {
+      name: "Unnamed",
       pieces: ps
     }
   }
