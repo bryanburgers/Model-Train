@@ -10,5 +10,6 @@ Endpoint.prototype.getFirstTraverser = function() {
 }
 
 Endpoint.prototype.getRandomTraverser = function() {
-  return this.traversers[0];
+  var t = this.traversers;
+  return t[Math.floor(Math.random() * t.length)]
 }
